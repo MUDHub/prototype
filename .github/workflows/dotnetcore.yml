@@ -3,9 +3,10 @@ name: App publishing
 on:
   push:
     branches: [ master ]
+    paths-ignore: "**.md"
   pull_request:
     branches: [ master ]
-
+    
 jobs:
   build:
     env:
