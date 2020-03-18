@@ -10,6 +10,7 @@ jobs:
   build:
     env:
       angularworkdir: src/MUDhub.Prototype.Server/ClientApp
+      dest: dest
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +24,18 @@ jobs:
       working-directory: ${{ env.angularworkdir }}
     - run: npm run-script build
       working-directory: ${{ env.angularworkdir }}
+    - run: mkdir -p ${{ env.dest }}/ClientApp/dist
+    - name: Copy angular to dest
+      run: cp -r ${{ env.angularworkdir }}/dist ${{ env.dest }}/ClientApp/dist
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.102
     - name: Build with dotnet
-      run: dotnet build src/**.sln -c Release -o dest 
+      run: dotnet build src/**.sln -c Release -o ${{ env.dest }}
     - name: 'Publish to Azure Web services'
       uses: azure/webapps-deploy@v1
       with:
         app-name: MUDhub-prototype # Replace with your app name
         publish-profile: ${{ secrets.azure_app_service_profile }} # Replace with the name of your publish profile
-        package: ./dest  # Specify the folder or file to deploy
+        package: ${{ env.dest }}  # Specify the folder or file to deploy
