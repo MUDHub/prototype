@@ -18,4 +18,10 @@ jobs:
       with:
         dotnet-version: 3.1.102
     - name: Build with dotnet
-      run: dotnet build src/**.sln --configuration Release
+      run: dotnet build src/**.sln -c Release -o dest 
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: MUDhub-prototype # Replace with your app name
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }} # Replace with the name of your publish profile
+        package: ./dest  # Specify the folder or file to deploy
