@@ -8,11 +8,21 @@ on:
 
 jobs:
   build:
-
+    env:
+      angularworkdir: src/MUDhub.Prototype.Server/ClientApp
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+    - name: Build Anugular
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.*
+      
+    - run: npm ci
+      working-directory: $angularworkdir
+    - run: npm run-script build
+      working-directory: $angularworkdir
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
