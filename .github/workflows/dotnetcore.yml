@@ -24,6 +24,7 @@ jobs:
       working-directory: ${{ env.angularworkdir }}
     - run: npm run-script build
       working-directory: ${{ env.angularworkdir }}
+    - run: mkdir ${{ env.dest }}/ClientApp/dist
     - name: Copy angular to dest
       run: cp -r ${{ env.angularworkdir }}/dist ${{ env.dest }}/ClientApp/dist
     - name: Setup .NET Core
