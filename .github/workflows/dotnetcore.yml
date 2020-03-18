@@ -1,4 +1,4 @@
-name: .NET Core
+name: App publishing
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 3.1.102
     - name: Build with dotnet
       run: dotnet build src/**.sln -c Release -o dest 
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
+    - name: 'Publish to Azure Web services'
       uses: azure/webapps-deploy@v1
       with:
         app-name: MUDhub-prototype # Replace with your app name
