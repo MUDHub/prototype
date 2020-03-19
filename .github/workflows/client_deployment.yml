@@ -1,3 +1,5 @@
+name: Client publishing
+
 on:
   push:
     branches: [ master ]
