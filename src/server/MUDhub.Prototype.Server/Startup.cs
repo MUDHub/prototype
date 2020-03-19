@@ -30,9 +30,11 @@ namespace MUDhub.Prototype.Server
                 opt.AddPolicy(Wildcard,
                 builder =>
                 {
-                    builder.WithOrigins("*",
-                                        "https://mudhub-prototype.azurewebsites.net");
-                });
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                })
+                ;
             });
         }
 
@@ -47,8 +49,8 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseExceptionHandler("/Error");
             }
-            app.UseCors(Wildcard);
             app.UseRouting();
+            app.UseCors(Wildcard);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
