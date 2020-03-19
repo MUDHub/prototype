@@ -13,4 +13,10 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
