@@ -3,7 +3,7 @@ name: Client publishing
 on:
   push:
     branches: [ master ]
-    paths: [ src/client/** , .github/workflows/client_deployment.yml ]
+    paths: nothing/to/trigger  #[ src/client/** , .github/workflows/client_deployment.yml ]
 
 env:
   AZURE_WEBAPP_NAME: MUDhub Prototype    # set this to your application's name

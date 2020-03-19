@@ -1,0 +1,17 @@
+name: Package Client
+
+on:
+  push:
+    branches: [ master ]
+    paths: [src/client/** , .github/workflows/client_docker.yml]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag mudhub-client:$(date +%s)
