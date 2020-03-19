@@ -13,7 +13,7 @@ export class ChatService {
 	messageReceived$ = new Subject<{user: string, message: string}>();
 
 	constructor() {
-		this.connection = new signalR.HubConnectionBuilder().withUrl('https://mudhub-api-prototype.azurewebsites.net/chat').build();
+		this.connection = new signalR.HubConnectionBuilder().withUrl('/chat').build();
 
 
 		this.connection.on('receiveMessage', (user, message) => {

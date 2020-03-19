@@ -3,7 +3,11 @@ name: Server publishing
 on:
   push:
     branches: [ master ]
-    paths: [ src/server/** , .github/workflows/server_deployment.yml ]
+    paths-ignore: "**.md"
+
+env:
+  WORKDIR_CLIENT: src/client
+  WORKDIR_DEST: dest
 
 jobs:
   build:
@@ -16,10 +20,26 @@ jobs:
       with:
         dotnet-version: 3.1.102
     - name: Build Server with dotnet
-      run: dotnet build src/server/**.sln -c Release -o dest
+      run: dotnet build src/server/**.sln -c Release -o ${{ env.WORKDIR_DEST }}
+    
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm Install dependencies
+      run: npm ci
+      working-directory: ${{env.WORKDIR_CLIENT}}
+      
+    - name: build angular client
+      run: npm run build -- --prod
+      working-directory: ${{env.WORKDIR_CLIENT}}
+      
+    - name: Copy client to destination
+      run: cp -r ${{env.WORKDIR_CLIENT}}/dist ${{env.WORKDIR_DEST}}
+      
     - name: Publish to Azure Web services
       uses: azure/webapps-deploy@v1
       with:
         app-name: MUDhub-prototype # Replace with your app name
         publish-profile: ${{ secrets.server_azure_deployment_key }} # Replace with the name of your publish profile
-        package: ./dest  # Specify the folder or file to deploy
+        package: ${{env.WORKDIR_DEST}}  # Specify the folder or file to deploy
