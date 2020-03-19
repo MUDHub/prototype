@@ -26,7 +26,7 @@ namespace MUDhub.Prototype.Server
             services.AddSignalR();
             services.AddSpaStaticFiles(conf =>
             {
-                conf.RootPath = Path.Combine(Configuration["spaDestination"], "dist");
+                conf.RootPath = Configuration["spaDestination"];
             });
         }
 
