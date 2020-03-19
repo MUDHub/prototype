@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: MUDhub Prototype    # set this to your application's name
-  NODE_VERSION: '10.x'                # set this to the node version to use
+  NODE_VERSION: '12.x'                # set this to the node version to use
 
 jobs:
   build-and-deploy:
