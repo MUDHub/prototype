@@ -30,9 +30,7 @@ namespace MUDhub.Prototype.Server
                 opt.AddPolicy(Wildcard,
                 builder =>
                 {
-                    builder.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin();
+                    builder.AllowAnyOrigin();
                 })
                 ;
             });
