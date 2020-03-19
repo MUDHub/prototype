@@ -21,5 +21,5 @@ jobs:
       uses: azure/webapps-deploy@v1
       with:
         app-name: MUDhub-prototype # Replace with your app name
-        publish-profile: ${{ secrets.azure_app_service_profile }} # Replace with the name of your publish profile
+        publish-profile: ${{ secrets.server_azure_deployment_key }} # Replace with the name of your publish profile
         package: ./dest  # Specify the folder or file to deploy
