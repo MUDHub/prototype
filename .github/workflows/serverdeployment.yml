@@ -1,0 +1,25 @@
+name: Server publishing
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ src/server/** , .github/workflows/serverdeployment.yml ]
+    paths-ignore: "**.md"    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.102
+    - name: Build Server with dotnet
+      run: dotnet build src/server/**.sln -c Release -o dest
+    - name: Publish to Azure Web services
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: MUDhub-prototype # Replace with your app name
+        publish-profile: ${{ secrets.azure_app_service_profile }} # Replace with the name of your publish profile
+        package: ./dest  # Specify the folder or file to deploy
