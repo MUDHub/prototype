@@ -3,7 +3,7 @@ name: Server publishing
 on:
   push:
     branches: [ master ]
-    paths: [ src/server/** , .github/workflows/serverdeployment.yml ]
+    paths: [ src/server/** , .github/workflows/server_deployment.yml ]
 
 jobs:
   build:
