@@ -57,7 +57,7 @@ namespace MUDhub.Prototype.Server
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-                endpoints.MapHub<ChatHub>("signalr/chat");
+                endpoints.MapHub<ChatHub>("/signalr/chat");
             });
         }
     }
