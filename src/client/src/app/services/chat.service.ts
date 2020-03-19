@@ -13,7 +13,7 @@ export class ChatService {
 	messageReceived$ = new Subject<{user: string, message: string}>();
 
 	constructor() {
-		this.connection = new signalR.HubConnectionBuilder().withUrl('/chat').build();
+		this.connection = new signalR.HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
 
 
 		this.connection.on('receiveMessage', (user, message) => {
@@ -26,6 +26,6 @@ export class ChatService {
 
 	sendMessage(message: string) {
 		console.log('sending ', message);
-		this.connection.invoke('sendMessage', {user: 'test', message});
+		this.connection.invoke('SendMessage', 'test', message);
 	}
 }
