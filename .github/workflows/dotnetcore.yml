@@ -3,9 +3,10 @@ name: App publishing
 on:
   push:
     branches: [ master ]
+    paths-ignore: "**.md"
   pull_request:
     branches: [ master ]
-
+    
 jobs:
   build:
     env:
@@ -26,7 +27,7 @@ jobs:
       working-directory: ${{ env.angularworkdir }}
     - run: mkdir -p ${{ env.dest }}/ClientApp/dist
     - name: Copy angular to dest
-      run: cp -r ${{ env.angularworkdir }}/dist ${{ env.dest }}/ClientApp/dist
+      run: cp -r ${{ env.angularworkdir }}/dist ${{ env.dest }}/ClientApp
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
