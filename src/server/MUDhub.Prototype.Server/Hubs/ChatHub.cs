@@ -13,5 +13,10 @@ namespace MUDhub.Prototype.Server.Hubs
         {
             return Clients.All.SendAsync("receiveMessage", user, message);
         }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
     }
 }

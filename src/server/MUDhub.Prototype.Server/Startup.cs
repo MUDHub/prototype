@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MUDhub.Prototype.Server.Hubs;
+using System.IO;
 
 namespace MUDhub.Prototype.Server
 {
@@ -23,6 +24,10 @@ namespace MUDhub.Prototype.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();
+            services.AddSpaStaticFiles(conf =>
+            {
+                conf.RootPath = Path.Combine(Configuration["spaDestination"], "dist");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,16 +41,9 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseExceptionHandler("/Error");
             }
+            app.UseSpaStaticFiles();
+
             app.UseRouting();
-
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins("http://localhost:4200")
-                    .AllowAnyHeader()
-                    .WithMethods("GET", "POST")
-                    .AllowCredentials();
-            });
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -53,6 +51,14 @@ namespace MUDhub.Prototype.Server
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chat");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = Configuration["spaDestination"];
             });
         }
     }
