@@ -10,6 +10,8 @@ namespace MUDhub.Prototype.Server
 {
     public class Startup
     {
+        private string Wildcard = "_mudhubWildcrad";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +25,15 @@ namespace MUDhub.Prototype.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(Wildcard,
+                builder =>
+                {
+                    builder.WithOrigins("*",
+                                        "https://mudhub-prototype.azurewebsites.net");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +47,7 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseExceptionHandler("/Error");
             }
+            app.UseCors(Wildcard);
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
