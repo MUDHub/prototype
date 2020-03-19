@@ -9,32 +9,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace MUDhub.Prototype.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class RoomsController : Controller
     {
         // GET: api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2", "Value2" };
+
+            return new string[] { "room1", "room2" };
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value"+id;
-        }
-
-        [HttpGet("{a}/{b}")]
-        public int GetMyNumber(int a,int b)
-        {
-            return a + b;
-        }
-
-        [HttpGet("{a}/{b}")]
-        public string GetMyNumber(int a, string b)
-        {
-            return b + a;
+            return "value";
         }
 
         // POST api/<controller>
