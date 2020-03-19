@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { Subject } from 'rxjs';
 
+import { environment as env } from 'src/environments/environment';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +15,7 @@ export class ChatService {
 	messageReceived$ = new Subject<{user: string, message: string}>();
 
 	constructor() {
-		this.connection = new signalR.HubConnectionBuilder().withUrl('http://localhost:5000/chat').build();
+		this.connection = new signalR.HubConnectionBuilder().withUrl(env.signalrUrl).build();
 
 
 		this.connection.on('receiveMessage', (user, message) => {
