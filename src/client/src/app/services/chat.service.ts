@@ -20,7 +20,6 @@ export class ChatService {
 			console.log({ user, message });
 			this.messageReceived$.next({user, message});
 		});
-
 		this.connection.start();
 	}
 
