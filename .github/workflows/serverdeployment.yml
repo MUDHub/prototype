@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths: [ src/server/** , .github/workflows/serverdeployment.yml ]
-    paths-ignore: "**.md"    
+
 jobs:
   build:
     runs-on: ubuntu-latest
