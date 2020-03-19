@@ -14,4 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file src/client/Dockerfile --tag mudhub-client:$(date +%s)
+      run: docker build . --file Dockerfile --tag mudhub-client:$(date +%s)
+      working-directory: src/client/
