@@ -38,7 +38,13 @@ namespace MUDhub.Prototype.Server
             }
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .WithMethods("GET", "POST")
+                    .AllowCredentials();
+            });
 
             app.UseEndpoints(endpoints =>
             {
