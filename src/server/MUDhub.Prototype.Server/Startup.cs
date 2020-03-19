@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MUDhub.Prototype.Server.Hubs;
 
 namespace MUDhub.Prototype.Server
 {
@@ -42,6 +43,7 @@ namespace MUDhub.Prototype.Server
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("signalr/chat");
             });
         }
     }
