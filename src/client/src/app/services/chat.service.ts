@@ -10,18 +10,23 @@ export class ChatService {
 
 	private connection: signalR.HubConnection;
 
-	messageReceived$: Subject<{user: string, message: string}>;
+	messageReceived$ = new Subject<{user: string, message: string}>();
 
 	constructor() {
-		this.connection = new signalR.HubConnectionBuilder().withUrl('https://mudhub-api-prototype.azurewebsites.net/signalr/chat').build();
+		this.connection = new signalR.HubConnectionBuilder().withUrl('https://mudhub-api-prototype.azurewebsites.net/chat').build();
 
 
-		this.connection.on('sendMessage', (user, message) => {
+		this.connection.on('receiveMessage', (user, message) => {
 			console.log({ user, message });
-			// this.messageReceived$.next({user, message});
+			this.messageReceived$.next({user, message});
 		});
 
-
 		this.connection.start();
+	}
+
+
+	sendMessage(message: string) {
+		console.log('sending ', message);
+		this.connection.invoke('sendMessage', {user: 'test', message});
 	}
 }

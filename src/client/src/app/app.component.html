@@ -1,4 +1,14 @@
 <h1>Chat</h1>
 
 
-open console
+
+<div class="controls">
+	<input type="text" #input>
+	<button (click)="sendMessage(input.value)">Send</button>
+</div>
+
+<div class="chat" style="margin-top: 1rem;">
+	<div class="message" *ngFor="let message of history">
+		<small>{{ message.user }}:</small> {{ message.message }}
+	</div>
+</div>
