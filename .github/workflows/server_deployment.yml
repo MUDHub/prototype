@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.102
+        dotnet-version: 3.1.101
     - name: Build Server with dotnet
       run: dotnet build src/server/**.sln -c Release -o ${{ env.WORKDIR_DEST }}
     
