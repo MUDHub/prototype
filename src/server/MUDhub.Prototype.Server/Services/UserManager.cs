@@ -29,7 +29,7 @@ namespace MUDhub.Prototype.Server.Services
         public User? Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
-
+            
             // return null if user not found
             if (user == null)
                 return null;
