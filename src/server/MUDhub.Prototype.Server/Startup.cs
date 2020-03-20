@@ -36,6 +36,7 @@ namespace MUDhub.Prototype.Server
             {
                 conf.RootPath = _spaDestiantion;
             });
+            services.AddSingleton<UserManager>();
             services.AddSingleton<RoomManager>();
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlite("myDatabase.db"));
@@ -66,7 +67,6 @@ namespace MUDhub.Prototype.Server
                 };
             });
 
-            services.AddScoped<UserManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
