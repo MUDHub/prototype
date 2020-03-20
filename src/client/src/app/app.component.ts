@@ -25,8 +25,10 @@ export class AppComponent implements OnInit {
 		this.chat.sendMessage(message);
 	}
 
+
 	changeRoom(roomNr: number) {
 		console.log('change room to ', roomNr);
 		this.chat.changeRoom(roomNr);
+		this.history = [];
 	}
 }
