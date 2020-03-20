@@ -18,10 +18,6 @@ export class ChatComponent implements OnInit {
 
 
 	sendDummy() {
-		this.http.get(env.url + 'api/rooms', {
-			headers: {
-				Authorization: 'Bearer ' + this.user.getToken()
-			}
-		}).subscribe(data => console.log(data));
+		this.http.get(env.url + 'api/rooms').subscribe(data => console.log(data));
 	}
 }
