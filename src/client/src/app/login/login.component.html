@@ -1,5 +1,8 @@
 <h1>MUDhub</h1>
-<input type="text" name="username" id="username" placeholder="username" #username>
-<input type="password" name="password" id="password" placeholder="password" #password>
-<button id="submit" (click)="login(username.value, password.value)" [disabled]="isLoading">{{ !isLoading ? 'Login' : 'Logging in...' }}</button>
+<form (submit)="submit($event)">
+    <input type="text" name="username" id="username" placeholder="username" required #username>
+    <input type="password" name="password" id="password" placeholder="password" required #password>
+    <button id="submit" type="submit" [disabled]="isLoading">{{ !isLoading ? 'Login' : 'Logging in...' }}</button>
+</form>
+
 <small>&copy; MUDhub 2020</small>

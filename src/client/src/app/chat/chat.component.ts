@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
+import { environment as env } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-chat',
@@ -17,7 +18,7 @@ export class ChatComponent implements OnInit {
 
 
 	sendDummy() {
-		this.http.get('http://localhost:5000/api/rooms', {
+		this.http.get(env.url + 'api/rooms', {
 			headers: {
 				Authorization: 'Bearer ' + this.user.getToken()
 			}

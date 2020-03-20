@@ -28,12 +28,5 @@ export class UserService {
 		}).toPromise();
 
 		this.token = (response as any).token;
-
-		// return new Promise((resolve, reject) => {
-		// 	setTimeout(() => {
-		// 		this.token = 'test';
-		// 		resolve(true);
-		// 	}, 2000);
-		// });
 	}
 }

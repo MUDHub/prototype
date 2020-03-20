@@ -20,6 +20,11 @@ $button-color: rgb(224, 93, 6);
 	box-shadow: 0 0 12px -4px rgba(0, 0, 0, 0.2);
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+}
+
 
 input, button {
 	padding: 1rem;

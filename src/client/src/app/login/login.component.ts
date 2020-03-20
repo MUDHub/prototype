@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
+	submit(event) {
+		event.preventDefault();
+		console.log(event);
+	}
 
 	async login(username: string, password: string) {
 		this.isLoading = true;
