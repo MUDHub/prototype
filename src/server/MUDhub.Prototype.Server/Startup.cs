@@ -14,10 +14,13 @@ namespace MUDhub.Prototype.Server
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _useProxy = Configuration.GetValue<bool>("spaAsStandalone");
+            _spaDestiantion = Configuration["spaDestination"];
         }
 
         public IConfiguration Configuration { get; }
-
+        private readonly bool _useProxy;
+        private readonly string _spaDestiantion;
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -26,7 +29,7 @@ namespace MUDhub.Prototype.Server
             services.AddSignalR();
             services.AddSpaStaticFiles(conf =>
             {
-                conf.RootPath = Configuration["spaDestination"];
+                conf.RootPath = _spaDestiantion;
             });
         }
 
@@ -44,6 +47,16 @@ namespace MUDhub.Prototype.Server
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            if (_useProxy)
+            {
+                app.UseCors(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            }
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -53,14 +66,18 @@ namespace MUDhub.Prototype.Server
                 endpoints.MapHub<ChatHub>("/chat");
             });
 
-            
-
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = Configuration["spaDestination"];
+                if (_useProxy)
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                }
+                else
+                {
+                    spa.Options.SourcePath = _spaDestiantion;
+                }
             });
         }
     }
