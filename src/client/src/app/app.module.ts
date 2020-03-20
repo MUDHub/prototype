@@ -24,7 +24,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 	],
 	providers: [
 		{
-			provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor
+			provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
 		}
 	],
 	bootstrap: [AppComponent]
