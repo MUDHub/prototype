@@ -9,19 +9,24 @@ import { ChatService } from './services/chat.service';
 export class AppComponent implements OnInit {
 	title = 'client';
 
-	history: Array<{user: string, message: string}> = [];
+	history: Array<string> = [];
 
-	constructor(private chat: ChatService) { }
+
+	constructor(public chat: ChatService) { }
 
 	ngOnInit(): void {
-		this.chat.messageReceived$.subscribe(messageObject => {
-			this.history.push(messageObject);
+		this.chat.messageReceived$.subscribe(message => {
+			this.history.push(message);
 		});
 	}
 
 
-
 	sendMessage(message: string) {
 		this.chat.sendMessage(message);
+	}
+
+	changeRoom(roomNr: number) {
+		console.log('change room to ', roomNr);
+		this.chat.changeRoom(roomNr);
 	}
 }

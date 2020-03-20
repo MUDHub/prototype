@@ -11,23 +11,32 @@ import { environment as env } from 'src/environments/environment';
 export class ChatService {
 
 	private connection: signalR.HubConnection;
+	roomNr: number;
 
-	messageReceived$ = new Subject<{user: string, message: string}>();
+	messageReceived$ = new Subject<string>();
 
 	constructor() {
 		this.connection = new signalR.HubConnectionBuilder().withUrl(env.signalrUrl).build();
 
-
-		this.connection.on('receiveMessage', (user, message) => {
-			console.log({ user, message });
-			this.messageReceived$.next({user, message});
+		this.connection.on('receiveRoom', (message) => {
+			this.messageReceived$.next(message);
 		});
 		this.connection.start();
 	}
 
 
 	sendMessage(message: string) {
-		console.log('sending ', message);
-		this.connection.invoke('SendMessage', 'test', message);
+		if (this.roomNr) {
+			this.connection.invoke('sendToRoom', this.roomNr, message);
+		} else {
+			throw new Error('No room specified');
+		}
+	}
+
+
+
+	changeRoom(roomNr: number) {
+		this.roomNr = roomNr;
+		// this.connection.invoke('changeRoom', roomNr);
 	}
 }
