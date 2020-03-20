@@ -19,12 +19,14 @@ export class UserService {
 	}
 
 
-	login(username: string, password: string) {
+	async login(username: string, password: string) {
 
-		return this.http.post('http://localhost:5000/users/authenticate', {
+		const response = await this.http.post('http://localhost:5000/users/authenticate', {
 			username,
 			password
 		}).toPromise();
+
+		this.token = (response as any).token;
 
 		// return new Promise((resolve, reject) => {
 		// 	setTimeout(() => {

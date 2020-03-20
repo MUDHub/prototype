@@ -80,12 +80,13 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseExceptionHandler("/Error");
             }
-            app.UseSpaStaticFiles();
-
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
             app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseRouting();
+            app.UseAuthorization();
             if (_useProxy)
             {
                 app.UseCors(builder =>
@@ -105,15 +106,19 @@ namespace MUDhub.Prototype.Server
                 endpoints.MapHub<CommandHub>("/command");
             });
 
-            app.UseSpa(spa =>
+            if (!env.IsDevelopment())
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-                if (!_useProxy)
+                app.UseSpa(spa =>
                 {
-                    spa.Options.SourcePath = _spaDestiantion;
-                }
-            });
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+                    if (!_useProxy)
+                    {
+                        spa.Options.SourcePath = _spaDestiantion;
+                    }
+                });
+
+            }
         }
     }
 }

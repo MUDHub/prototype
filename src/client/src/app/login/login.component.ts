@@ -17,10 +17,10 @@ export class LoginComponent implements OnInit {
 	}
 
 
-	async login() {
+	async login(username: string, password: string) {
 		this.isLoading = true;
 		try {
-			await this.user.login('test', 'password');
+			await this.user.login(username, password);
 			await this.router.navigate(['/']);
 		} catch (err) {
 			console.error('Login - ' + err.message, err);

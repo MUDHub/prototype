@@ -6,7 +6,7 @@ using MUDhub.Prototype.Server.Services;
 namespace MUDhub.Prototype.Server.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {

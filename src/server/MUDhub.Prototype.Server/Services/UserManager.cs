@@ -16,7 +16,7 @@ namespace MUDhub.Prototype.Server.Services
     {
         private readonly List<User> _users = new List<User>
         {
-            new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
+            new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "password" }
         };
 
         private readonly AppSettings _appSettings;
