@@ -63,11 +63,14 @@ namespace MUDhub.Prototype.Server
             }
             app.UseSpaStaticFiles();
 
-
+            if (env.IsDevelopment())
+            {
+                
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
 
+            }
 
             app.UseRouting();
             if (_useProxy)
