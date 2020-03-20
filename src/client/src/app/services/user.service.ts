@@ -28,5 +28,6 @@ export class UserService {
 		}).toPromise();
 
 		this.token = (response as any).token;
+		console.log(response);
 	}
 }
