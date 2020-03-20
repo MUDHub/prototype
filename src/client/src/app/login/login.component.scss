@@ -25,10 +25,22 @@ form {
 	flex-direction: column;
 }
 
+.form-control {
+	display: flex;
+	flex-direction: column;
+
+	&:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+}
+
+.form-control .errors {
+	color: red;
+	font-size: 80%;
+}
 
 input, button {
 	padding: 1rem;
-	margin: 0.4rem 0;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	background-color: #f9f9f9;
 	text-align: center;

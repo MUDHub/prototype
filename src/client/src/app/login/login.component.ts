@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-login',
@@ -9,25 +10,34 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+	loginForm: FormGroup;
+	returnUrl: string;
 	isLoading = false;
 
-	constructor(private user: UserService, private router: Router) { }
+	constructor(private formBuilder: FormBuilder, private user: AuthService, private route: ActivatedRoute, private router: Router) { }
 
-	ngOnInit(): void {
+	ngOnInit() {
+		this.loginForm = this.formBuilder.group({
+			username: ['', Validators.required],
+			password: ['', Validators.required]
+		});
+
+		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
-	submit(event) {
-		event.preventDefault();
-		console.log(event);
-	}
 
-	async login(username: string, password: string) {
+	async onSubmit() {
+		if (this.loginForm.invalid) {
+			return;
+		}
+
 		this.isLoading = true;
+
 		try {
-			await this.user.login(username, password);
-			await this.router.navigate(['/']);
+			await this.user.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
+			await this.router.navigate([ this.returnUrl ]);
 		} catch (err) {
-			console.error('Login - ' + err.message, err);
+			console.error(err.message, err);
 			alert(err.message);
 		} finally {
 			this.isLoading = false;

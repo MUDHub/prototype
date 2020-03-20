@@ -1,7 +1,17 @@
 <h1>MUDhub</h1>
-<form (submit)="submit($event)">
-    <input type="text" name="username" id="username" placeholder="username" required #username>
-    <input type="password" name="password" id="password" placeholder="password" required #password>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+	<div class="form-control">
+		<input type="text" name="username" formControlName="username" placeholder="username">
+		<div class="errors" *ngIf="loginForm.touched && loginForm.controls.username.errors">
+			<div *ngIf="loginForm.controls.username.errors.required">Username is required</div>
+		</div>
+	</div>
+	<div class="form-control">
+		<input type="password" name="password" formControlName="password" placeholder="password">
+		<div class="errors" *ngIf="loginForm.touched && loginForm.controls.password.errors">
+			<div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+		</div>
+	</div>
     <button id="submit" type="submit" [disabled]="isLoading">{{ !isLoading ? 'Login' : 'Logging in...' }}</button>
 </form>
 
