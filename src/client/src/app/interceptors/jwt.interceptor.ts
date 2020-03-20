@@ -3,7 +3,8 @@ import {
 	HttpRequest,
 	HttpHandler,
 	HttpEvent,
-	HttpInterceptor
+	HttpInterceptor,
+	HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -15,8 +16,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
 	intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-		request.headers.append('Authorization', 'Bearer ' + this.auth.getToken());
+		const req = request.clone({
+			headers: request.headers.set('Authorization', `Bearer ${this.auth.getToken()}`)
+		});
 
-		return next.handle(request);
+		return next.handle(req);
 	}
 }
