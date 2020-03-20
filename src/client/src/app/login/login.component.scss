@@ -1,0 +1,64 @@
+$button-color: rgb(224, 93, 6);
+
+:host {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+
+	width: 95%;
+	max-width: 500px;
+	padding: 2rem;
+
+	border-radius: 4px;
+
+	box-shadow: 0 0 12px -4px rgba(0, 0, 0, 0.2);
+}
+
+
+input, button {
+	padding: 1rem;
+	margin: 0.4rem 0;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background-color: #f9f9f9;
+	text-align: center;
+	font-family: inherit;
+	outline: none;
+	transition: all 0.15s ease-in-out;
+	border-radius: 6px;
+}
+
+input:focus {
+	box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#submit {
+	background-color: $button-color;
+	color: #fff;
+	cursor: pointer;
+}
+
+#submit:hover {
+	background-color: darken($button-color, 5);
+}
+
+#submit:disabled {
+	background-color: desaturate($button-color, 100%);
+	color: #bbb;
+	cursor: auto;
+}
+
+small {
+	position: absolute;
+	top: calc(100% + 2rem);
+	left: 0;
+	text-align: center;
+	display: block;
+	width: 100%;
+	color: #999;
+}
