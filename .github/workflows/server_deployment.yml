@@ -1,6 +1,5 @@
 name: Server publishing
 
-
 on:
   push:
     branches: [ master ]
