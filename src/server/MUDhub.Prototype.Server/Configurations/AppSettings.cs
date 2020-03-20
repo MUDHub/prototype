@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Configurations
 {
-    public class AppSettings
+    public class UserSettings
     {
         public string Secret { get; set; } = string.Empty;
     }

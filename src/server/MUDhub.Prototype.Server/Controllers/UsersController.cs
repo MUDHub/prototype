@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using MUDhub.Prototype.Server.ApiModels;
+using MUDhub.Prototype.Server.Models;
 using MUDhub.Prototype.Server.Services;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Controllers
 {
@@ -18,22 +23,38 @@ namespace MUDhub.Prototype.Server.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginResult>> LoginAsync([FromBody]AuthenticateModel model)
         {
-            var user = _userService.Authenticate(model.Username, model.Password);
+            var result = await _userService.LoginAsync(model.Username, model.Password);
 
-            if (user == null)
+            if (!result.Succeeded)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
-            return Ok(user);
+            return Ok(result);
+        }   
+
+        [HttpPost("register")]
+        public async Task<ActionResult<RegisterResult>> RegisterAsnyc([FromBody]AuthenticateModel model)
+        {
+            var result = await _userService.RegisterAsync(model.Username, model.Password, false);
+            if (!result.Succeeded)
+                return BadRequest();
+
+            return Ok(result);
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
+        [AllowAnonymous]
+        [HttpGet("")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-            var users = _userService.GetAll();
-            return Ok(users);
+            var list = new List<User>();
+            await foreach (var user in _userService.GetUsersAsync())
+            {
+                list.Add(user);
+            }
+
+            return Ok(list);
         }
     }
 }

@@ -36,18 +36,18 @@ namespace MUDhub.Prototype.Server
             {
                 conf.RootPath = _spaDestiantion;
             });
-            services.AddSingleton<UserManager>();
+            services.AddScoped<UserManager>();
             services.AddSingleton<RoomManager>();
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlite("myDatabase.db"));
+                    options.UseSqlite("Data Source=myDatabase.db"));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
+            services.Configure<UserSettings>(appSettingsSection);
 
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            var appSettings = appSettingsSection.Get<UserSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {

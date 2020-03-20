@@ -22,7 +22,7 @@ export class UserService {
 
 	async login(username: string, password: string) {
 
-		const response = await this.http.post(env.url + 'users/authenticate', {
+		const response = await this.http.post(env.url + 'users/login', {
 			username,
 			password
 		}).toPromise();
