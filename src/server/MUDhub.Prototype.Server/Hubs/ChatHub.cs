@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,13 @@ namespace MUDhub.Prototype.Server.Hubs
             return Clients.All.SendAsync("receiveMessage", user, message);
         }
 
+        public Task SendToRoom(string roomname, string message)
+        {
+            return Clients.Group(roomname).SendAsync("receiveRoom", message);
+        }
         public override Task OnConnectedAsync()
         {
+            Groups.AddToGroupAsync(Context.ConnectionId, "room1");
             return base.OnConnectedAsync();
         }
     }
