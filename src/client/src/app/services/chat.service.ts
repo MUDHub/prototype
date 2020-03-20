@@ -37,6 +37,6 @@ export class ChatService {
 
 	changeRoom(roomNr: number) {
 		this.roomNr = roomNr;
-		// this.connection.invoke('changeRoom', roomNr);
+		this.connection.invoke('changeRoom', roomNr);
 	}
 }
