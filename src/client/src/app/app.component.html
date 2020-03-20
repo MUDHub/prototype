@@ -1,21 +1,3 @@
-<h1>my awesome Chat</h1>
-
-<div class="rooms">
-	<button id="room1" (click)="changeRoom(1)">Room 1</button>
-	<button id="room2" (click)="changeRoom(2)">Room 2</button>
-	<button id="room3" (click)="changeRoom(3)">Room 3</button>
-	<button id="room4" (click)="changeRoom(4)">Room 4</button>
-</div>
-
-<div>
-	Room: {{ this.chat.roomNr }}
-</div>
-
-<div class="controls">
-	<input type="text" #input [disabled]="this.chat.roomNr === undefined">
-	<button (click)="sendMessage(input.value)" [disabled]="this.chat.roomNr === undefined">Send</button>
-</div>
-
-<div class="chat" style="margin-top: 1rem;">
-	<div class="message" *ngFor="let message of history">{{ message }}</div>
+<div class="outlet">
+	<router-outlet></router-outlet>
 </div>
