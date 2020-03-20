@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserService {
 
 	async login(username: string, password: string) {
 
-		const response = await this.http.post('http://localhost:5000/users/authenticate', {
+		const response = await this.http.post(env.url + 'users/authenticate', {
 			username,
 			password
 		}).toPromise();

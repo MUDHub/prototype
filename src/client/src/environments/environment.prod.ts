@@ -1,4 +1,4 @@
 export const environment = {
-	signalrUrl: '/chat',
+	url: '/',
 	production: true
 };

@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	signalrUrl: 'http://localhost:5000/chat',
-	production: false
+	production: false,
+	url: 'http://localhost:5000/'
 };
 
 /*

@@ -16,7 +16,7 @@ export class ChatService {
 	messageReceived$ = new Subject<string>();
 
 	constructor() {
-		this.connection = new signalR.HubConnectionBuilder().withUrl(env.signalrUrl).build();
+		this.connection = new signalR.HubConnectionBuilder().withUrl(env.url + 'chat').build();
 
 		this.connection.on('receiveRoom', (message) => {
 			this.messageReceived$.next(message);
