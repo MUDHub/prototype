@@ -40,7 +40,7 @@ namespace MUDhub.Prototype.Server.Services
 
             bool success = CheckPassword(user, password);
 
-            if (success)
+            if (!success)
                 return new LoginResult(false);
 
             var token = CreateToken(user.Id);

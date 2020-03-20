@@ -32,8 +32,13 @@ namespace MUDhub.Prototype.Server.Services
         {
             Users.Add(new User
             {
-                Username = "Marvin",
+                Username = "marvin",
                 PasswordHash = UserManager.CreatePasswordHash("hallowelt")
+            });
+            Users.Add(new User
+            {
+                Username = "mario",
+                PasswordHash = UserManager.CreatePasswordHash("password")
             });
             SaveChanges();
         }
