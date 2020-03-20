@@ -5,7 +5,7 @@ import { environment as env } from 'src/environments/environment';
 @Injectable({
 	providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
 	private token: string;
 	get isLoggedIn() {

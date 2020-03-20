@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 import { environment as env } from 'src/environments/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { environment as env } from 'src/environments/environment';
 })
 export class ChatComponent implements OnInit {
 
-	constructor(private http: HttpClient, private user: UserService) { }
+	constructor(private http: HttpClient, private user: AuthService) { }
 
 	ngOnInit(): void {
 
@@ -18,10 +18,6 @@ export class ChatComponent implements OnInit {
 
 
 	sendDummy() {
-		this.http.get(env.url + 'api/rooms', {
-			headers: {
-				Authorization: 'Bearer ' + this.user.getToken()
-			}
-		}).subscribe(data => console.log(data));
+		this.http.get(env.url + 'api/rooms').subscribe(data => console.log(data));
 	}
 }
