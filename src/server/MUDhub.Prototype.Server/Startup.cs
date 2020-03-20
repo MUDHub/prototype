@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MUDhub.Prototype.Server.Hubs;
+using MUDhub.Prototype.Server.Services;
 using System.IO;
 
 namespace MUDhub.Prototype.Server
@@ -24,13 +29,25 @@ namespace MUDhub.Prototype.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddRazorPages();
             services.AddSignalR();
             services.AddSpaStaticFiles(conf =>
             {
                 conf.RootPath = _spaDestiantion;
             });
+            services.AddSingleton<RoomManager>();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlite("myDatabase.db"));
+
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +62,12 @@ namespace MUDhub.Prototype.Server
                 app.UseExceptionHandler("/Error");
             }
             app.UseSpaStaticFiles();
+
+
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
+
 
             app.UseRouting();
             if (_useProxy)
@@ -62,19 +85,15 @@ namespace MUDhub.Prototype.Server
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<CommandHub>("/command");
             });
 
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-                if (_useProxy)
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                }
-                else
+                if (!_useProxy)
                 {
                     spa.Options.SourcePath = _spaDestiantion;
                 }

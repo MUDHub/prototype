@@ -1,5 +1,5 @@
 ﻿ using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
+//using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
