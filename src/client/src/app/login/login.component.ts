@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	returnUrl: string;
 	isLoading = false;
+	isSubmitted = false;
 
 	constructor(private formBuilder: FormBuilder, private user: AuthService, private route: ActivatedRoute, private router: Router) { }
 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
 
 
 	async onSubmit() {
+		this.isSubmitted = true;
 		if (this.loginForm.invalid) {
 			return;
 		}
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
 
 		try {
 			await this.user.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
-			await this.router.navigate([ this.returnUrl ]);
+			await this.router.navigate([this.returnUrl]);
 		} catch (err) {
 			console.error(err.message, err);
 			alert(err.message);
