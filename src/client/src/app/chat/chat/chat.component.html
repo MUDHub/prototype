@@ -1,0 +1,16 @@
+<h1>Chat</h1>
+
+<div class="input">
+	<input type="text" [(ngModel)]="name" placeholder="name">
+	<input type="text" id="message" #message [disabled]="!name" placeholder="message" (keyup.enter)="sendMessage(message)">
+	<button [disabled]="!name" (click)="sendMessage(message)">Send</button>
+</div>
+
+
+<div class="chat">
+	<div class="message" *ngFor="let message of chatHistory">
+		<div class="username">{{ message.username }}</div>
+		<div class="content">{{ message.message }}</div>
+		<div class="timestamp">{{ message.timestamp | date : 'HH:mm:ss' }}</div>
+	</div>
+</div>

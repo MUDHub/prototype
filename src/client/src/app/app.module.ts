@@ -6,17 +6,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { ChatComponent } from './chat/chat.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ChatModule } from './chat/chat.module';
+import { RoomsModule } from './rooms/rooms.module';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
-		ChatComponent
 	],
 	imports: [
 		BrowserModule,
+		ChatModule,
+		RoomsModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
