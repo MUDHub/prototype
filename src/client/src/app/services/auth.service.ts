@@ -29,4 +29,8 @@ export class AuthService {
 
 		this.token = (response as any).token;
 	}
+
+	logout() {
+		this.token = undefined;
+	}
 }
