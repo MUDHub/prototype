@@ -11,28 +11,23 @@ using MUDhub.Prototype.Server.Services;
 
 namespace MUDhub.Prototype.Server.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomsController : ControllerBase
     {
         private readonly RoomManager _roomManager;
 
-        public RoomsController(RoomManager roomManager)
+        public RoomsController(RoomManager roomManager, UserManager userManager)
         {
             _roomManager = roomManager;
         }
 
         [HttpGet()]
-        public IEnumerable<Room> GetRooms()
+        public IActionResult GetRooms([FromQuery]int? x = null, [FromQuery]int? y = null)
         {
-            return _roomManager.GetDummyRooms();
+            return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));
         }
 
-        [HttpGet("/{x}/{y}")]
-        public Room GetRooms(int x, int y)
-        {
-            return _roomManager.GetDummyRooms().FirstOrDefault();
-        }
+
     }
 }

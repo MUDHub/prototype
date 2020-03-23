@@ -34,7 +34,7 @@ namespace MUDhub.Prototype.Server.Services
 
         public async Task<LoginResult> LoginAsync(string username, string password)
         {
-            var user = await GetUserAsync(username);
+            User? user = await GetUserAsync(username);
             if (user == null)
                 return new LoginResult(false);
 
@@ -116,9 +116,7 @@ namespace MUDhub.Prototype.Server.Services
 
         public Task<User?> GetUserAsync(string name)
         {
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
             return _dbContext.Users.FirstOrDefaultAsync(u => u.Username == name);
-#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
         }
 
         public IAsyncEnumerable<User> GetUsersAsync()

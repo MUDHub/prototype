@@ -20,6 +20,6 @@ namespace MUDhub.Prototype.Server.Models
         TalkToNpc,
         PickItem,
 
-        TalkToPlayer,
+        //TalkToPlayer,
     }
 }

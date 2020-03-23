@@ -8,7 +8,7 @@ namespace MUDhub.Prototype.Server.Hubs.Models
     public enum ChannelScope
     {
         Public = 0,
-        Room = 1,
-        Area = 2
+        Area = 1,
+        Room = 2,
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,6 @@ namespace MUDhub.Prototype.Server.Models
         public string? EastId { get; set; }
 
         
-
     }
 
     public class Point
@@ -32,6 +32,8 @@ namespace MUDhub.Prototype.Server.Models
             X = x;
             Y = y;
         }
+        [Key]
+        public string Uid { get; set; } = Guid.NewGuid().ToString();
         public int X { get; set; }
         public int Y { get; set; }
 

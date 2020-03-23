@@ -18,7 +18,6 @@ namespace MUDhub.Prototype.Server.Hubs
 
         public Task<ActionRequestResult> SendActionRequest(ActionRequestArgs args)
         {
-
             return Task.FromResult(new ActionRequestResult
             {
                 Succeeded = true
