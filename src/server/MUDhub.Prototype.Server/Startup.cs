@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 using MUDhub.Prototype.Server.Configurations;
 using MUDhub.Prototype.Server.Hubs;
 using MUDhub.Prototype.Server.Services;
-using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server
 {
@@ -56,6 +55,21 @@ namespace MUDhub.Prototype.Server
             })
             .AddJwtBearer(x =>
             {
+                x.Events = new JwtBearerEvents()
+                {
+                    OnTokenValidated = context =>
+                    {
+                        //var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                        var userId = int.Parse(context.Principal.Identity.Name);
+                        //var user = userService.GetById(userId);
+                        if (user == null)
+                        {
+                            // return unauthorized if user no longer exists
+                            context.Fail("Unauthorized");
+                        }
+                        return Task.CompletedTask;
+                    }
+                }
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters

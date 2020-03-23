@@ -29,6 +29,10 @@ namespace MUDhub.Prototype.Server.Controllers
             return _roomManager.GetDummyRooms();
         }
 
-
+        [HttpGet("/{x}/{y}")]
+        public Room GetRooms(int x, int y)
+        {
+            return _roomManager.GetDummyRooms().FirstOrDefault();
+        }
     }
 }

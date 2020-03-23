@@ -20,6 +20,8 @@ namespace MUDhub.Prototype.Server.Models
         public string? SouthId { get; set; }
         public string? EastId { get; set; }
 
+        
+
     }
 
     public class Point

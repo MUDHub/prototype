@@ -83,7 +83,8 @@ namespace MUDhub.Prototype.Server.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, userid)
+                    new Claim(ClaimTypes.Name, userid),
+                    //new Claim(ClaimTypes.)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
