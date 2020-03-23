@@ -13,11 +13,11 @@ namespace MUDhub.Prototype.Server.Services
     public class RoomManager
     {
 
-        private Dictionary<Point, Room> _rooms;
+        private Dictionary<(int X, int Y), Room> _rooms;
 
         public RoomManager()
         {
-            _rooms = new Dictionary<Point, Room>();
+            _rooms = new Dictionary<(int X, int Y), Room>();
             CreateRooms();
         }
 
@@ -26,8 +26,6 @@ namespace MUDhub.Prototype.Server.Services
             var r = new Room
             {
                 Name = "Kantine",
-                Position = new Point(0, 0)
-
             };
             _rooms.Add(r.Position,r);
             //list.Add();
@@ -42,14 +40,24 @@ namespace MUDhub.Prototype.Server.Services
 
         public Room? GetRoom(int x, int y)
         {
-            if (_rooms.ContainsKey(new Point(x,y)))
+            if (_rooms.ContainsKey((x,y)))
             {
-                return _rooms[new Point(x, y)];
+                return _rooms[(x, y)];
             }
             else
             {
                 return null;
             }
+        }
+
+        internal void CreateRooms((string Name, int X, int Y)[] rooms)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void CreateRoom(string? name, (int X, int Y) p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

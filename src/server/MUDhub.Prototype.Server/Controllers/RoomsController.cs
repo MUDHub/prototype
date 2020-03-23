@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,5 +30,13 @@ namespace MUDhub.Prototype.Server.Controllers
         }
 
 
+
+
+        [HttpPost("")]
+        public IActionResult CreateRoom([FromBody]CreateRoomArgs args)
+        {
+            _roomManager.CreateRooms(args.Rooms);
+            return Ok();
+        }
     }
 }

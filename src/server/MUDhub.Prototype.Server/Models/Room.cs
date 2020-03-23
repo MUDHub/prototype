@@ -14,7 +14,7 @@ namespace MUDhub.Prototype.Server.Models
         public string EnterMessage { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public Point Position { get; set; } = new Point(0, 0);
+        public (int X, int Y) Position { get; set; } = (0, 0);
 
         public string? WestId { get; set; } // maybe as reference of room
         public string? NorthId { get; set; }
