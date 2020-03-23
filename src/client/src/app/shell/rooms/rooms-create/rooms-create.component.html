@@ -1,0 +1,13 @@
+<button (click)="removeWidth()">Sub Width</button>
+<button (click)="addWidth()">Add Width</button>
+<br>
+<button (click)="removeHeight()">Sub Height</button>
+<button (click)="addHeight()">Add Height</button>
+
+<div class="matrix">
+
+	<div class="row" *ngFor="let row of matrix; let y = index">
+		<app-room class="room" *ngFor="let room of row; let x = index" [y]="y" [x]="x"></app-room>
+	</div>
+
+</div>
