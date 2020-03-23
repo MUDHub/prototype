@@ -27,6 +27,8 @@ namespace MUDhub.Prototype.Server.Controllers
         public IActionResult GetRooms([FromQuery]int? x = null, [FromQuery]int? y = null)
         {
             return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));
+
+            
         }
 
 
