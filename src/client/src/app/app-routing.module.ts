@@ -33,6 +33,11 @@ const routes: Routes = [
 				path: 'rooms',
 				children: [
 					{
+						path: '',
+						redirectTo: 'create',
+						pathMatch: 'full'
+					},
+					{
 						path: 'list',
 						component: RoomsListComponent
 					},
