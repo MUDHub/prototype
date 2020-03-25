@@ -1,0 +1,50 @@
+@import 'src/variables.scss';
+
+:host {
+	background-color: #333;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.chat {
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	padding: 1rem;
+	overflow-y: scroll;
+
+	.message {
+
+		background-color: grey;
+		border-radius: 7px;
+		margin-bottom: 1rem;
+		padding: 0.5rem;
+		align-self: flex-start;
+		max-width: 90%;
+
+		&.own {
+			border-radius: 7px;
+			padding: 0.5rem;
+			background-color: $primary;
+			align-self: flex-end;
+		}
+	}
+}
+
+
+#message-input {
+	width: 100%;
+	resize: none;
+	padding: 1rem;
+	border: none;
+	outline: none;
+
+	background-color: #444;
+	color: #fff;
+	font-size: 20px;
+	font-family: inherit;
+
+}

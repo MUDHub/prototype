@@ -5,20 +5,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GameComponent } from './game/game.component';
 import { LoginComponent } from './login/login.component';
+import { ContainerComponent } from './container/container.component';
+import { GlobalChatComponent } from './global-chat/global-chat.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
+		LoginComponent,
+		ContainerComponent,
+		GlobalChatComponent,
 		GameComponent,
-		LoginComponent
 	],
 	imports: [
 		BrowserModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		AppRoutingModule
+		AppRoutingModule,
+		FormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
