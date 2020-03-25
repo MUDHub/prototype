@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit {
 	isLoading = false;
 	isSubmitted = false;
 
-	constructor(private formBuilder: FormBuilder, private user: AuthService, private route: ActivatedRoute, private router: Router) { }
+	constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router, private route: ActivatedRoute) { }
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.loginForm = this.formBuilder.group({
 			username: ['', Validators.required],
 			password: ['', Validators.required]
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
 
 	async onSubmit() {
+		console.log('submitted');
 		this.isSubmitted = true;
 		if (this.loginForm.invalid) {
 			return;
@@ -36,8 +37,8 @@ export class LoginComponent implements OnInit {
 		this.isLoading = true;
 
 		try {
-			await this.user.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
-			await this.router.navigate([this.returnUrl]);
+			await this.auth.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
+			await this.router.navigate(['/']);
 		} catch (err) {
 			console.error(err.message, err);
 			alert(err.message);

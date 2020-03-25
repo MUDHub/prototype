@@ -1,5 +1,8 @@
-<h1>MUDhub</h1>
+
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+	<img src="/assets/mudhub_logo_light.png" alt="logo">
+
 	<div class="form-control">
 		<input type="text" name="username" formControlName="username" placeholder="username" autocomplete="username">
 		<div class="errors" *ngIf="isSubmitted && loginForm.controls.username.errors">
@@ -12,7 +15,6 @@
 			<div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
 		</div>
 	</div>
-    <button id="submit" type="submit" [disabled]="isLoading">{{ !isLoading ? 'Login' : 'Logging in...' }}</button>
-</form>
 
-<small>&copy; MUDhub 2020</small>
+	<button class="login" type="submit" [disabled]="isLoading">Anmelden</button>
+</form>

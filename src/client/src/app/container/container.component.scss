@@ -1,0 +1,19 @@
+:host {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: stretch;
+}
+
+
+app-global-chat {
+	width: 25%;
+	min-width: 300px;
+	max-width: 500px;
+	border-right: 1px solid black;
+}
+
+app-game {
+	flex-grow: 1;
+}

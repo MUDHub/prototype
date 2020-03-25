@@ -15,6 +15,40 @@ namespace MUDhub.Prototype.Server.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2");
 
+            modelBuilder.Entity("MUDhub.Prototype.Server.Models.Room", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EastId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EnterMessage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NorthId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SouthId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("WestId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
             modelBuilder.Entity("MUDhub.Prototype.Server.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -31,6 +65,35 @@ namespace MUDhub.Prototype.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MUDhub.Prototype.Server.Models.Room", b =>
+                {
+                    b.OwnsOne("MUDhub.Prototype.Server.Models.Point", "Position", b1 =>
+                        {
+                            b1.Property<string>("Uid")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("RoomId")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("X")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("Y")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("Uid");
+
+                            b1.HasIndex("RoomId")
+                                .IsUnique();
+
+                            b1.ToTable("Rooms1");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomId");
+                        });
                 });
 #pragma warning restore 612, 618
         }
