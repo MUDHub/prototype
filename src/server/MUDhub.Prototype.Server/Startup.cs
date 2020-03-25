@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MUDhub.Prototype.Server.Configurations;
 using MUDhub.Prototype.Server.Hubs;
 using MUDhub.Prototype.Server.Services;
@@ -81,6 +82,11 @@ namespace MUDhub.Prototype.Server
                 };
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MUDhub API", Version = "v1" });
+            });
+
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +102,11 @@ namespace MUDhub.Prototype.Server
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUDhub API");
+            });
 
             app.UseAuthentication();
             app.UseRouting();
