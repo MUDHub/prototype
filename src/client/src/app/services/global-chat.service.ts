@@ -3,6 +3,7 @@ import * as signalR from '@aspnet/signalr';
 import { environment as env } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { HttpTransportType } from '@aspnet/signalr';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,7 +21,9 @@ export class GlobalChatService {
 
 	constructor(private auth: AuthService) {
 		this.connection = new signalR.HubConnectionBuilder()
-			.withUrl(env.url + 'chat', {
+			.withUrl(env.url + 'hubs/chat', {
+				skipNegotiation: true,
+				transport: HttpTransportType.WebSockets,
 				accessTokenFactory: () => this.auth.token
 			})
 			.build();

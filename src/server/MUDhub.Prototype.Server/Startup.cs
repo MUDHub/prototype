@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,8 @@ namespace MUDhub.Prototype.Server
             services.AddScoped<NavigationService>();
             services.AddSingleton<RoomManager>();
             services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlite("Data Source=myDatabase.db"));
+                    options.UseSqlite("Data Source=myDatabase.db"),
+                    ServiceLifetime.Singleton);
 
             services.AddControllersWithViews();
             //services.AddRazorPages();
@@ -82,6 +84,35 @@ namespace MUDhub.Prototype.Server
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+
+                // We have to hook the OnMessageReceived event in order to
+                // allow the JWT authentication handler to read the access
+                // token from the query string when a WebSocket or 
+                // Server-Sent Events request comes in.
+
+                // Sending the access token in the query string is required due to
+                // a limitation in Browser APIs. We restrict it to only calls to the
+                // SignalR hub in this code.
+                // See https://docs.microsoft.com/aspnet/core/signalr/security#access-token-logging
+                // for more information about security considerations when using
+                // the query string to transmit the access token.
+                x.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/hubs")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             services.AddSwaggerGen(c =>
@@ -98,6 +129,13 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSpaStaticFiles();
+                app.Use(async (context, next) =>
+                {
+
+                    await next();
+
+
+                });
             }
             else
             {
@@ -128,8 +166,8 @@ namespace MUDhub.Prototype.Server
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapHub<GameHub>("/game");
-                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<GameHub>("/hubs/game");
+                endpoints.MapHub<ChatHub>("/hubs/chat");
             });
 
             if (!env.IsDevelopment())

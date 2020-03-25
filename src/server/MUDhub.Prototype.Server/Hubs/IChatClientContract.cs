@@ -7,7 +7,7 @@ namespace MUDhub.Prototype.Server.Hubs
 {
     public interface IChatClientContract
     {
-        void ReceiveGlobalMessage(string message, string username);
-        void ReceivePrivateMessage(string message, string username);
+        Task ReceiveGlobalMessage(string message, string username);
+        Task ReceivePrivateMessage(string message, string username);
     }
 }

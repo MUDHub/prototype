@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 using MUDhub.Prototype.Server.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MUDhub.Prototype.Server.Services
@@ -11,8 +12,10 @@ namespace MUDhub.Prototype.Server.Services
     public class ApplicationDbContext : DbContext
     {
 
+        public List<User> List { get; }
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+            List = new List<User>();
             Database.EnsureDeleted();
             //Database.Migrate();
             Database.EnsureCreated();
@@ -28,21 +31,30 @@ namespace MUDhub.Prototype.Server.Services
 
         private void CreateInitalUsers()
         {
-            Users.Add(new User
+            var user = new User
             {
+                Id = Guid.NewGuid().ToString(),
                 Username = "marvin",
                 PasswordHash = UserManager.CreatePasswordHash("hallowelt")
-            });
-            Users.Add(new User
+            };
+            List.Add(user);
+            Users.Add(user);
+            user = new User
             {
+                Id = Guid.NewGuid().ToString(),
                 Username = "mario",
                 PasswordHash = UserManager.CreatePasswordHash("password")
-            });
-            Users.Add(new User
+            };
+            List.Add(user);
+            Users.Add(user);
+            user = new User
             {
+                Id = Guid.NewGuid().ToString(),
                 Username = "moris",
                 PasswordHash = UserManager.CreatePasswordHash("test")
-            });
+            };
+            List.Add(user);
+            Users.Add(user);
             SaveChanges();
         }
     }

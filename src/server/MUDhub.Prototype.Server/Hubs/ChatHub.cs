@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using MUDhub.Prototype.Server.Models;
 using MUDhub.Prototype.Server.Services;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub<IChatClientContract>
     {
         private readonly UserManager _userManager;

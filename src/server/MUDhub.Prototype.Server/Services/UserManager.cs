@@ -119,6 +119,7 @@ namespace MUDhub.Prototype.Server.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, userid),
+                    new Claim(ClaimTypes.NameIdentifier, userid),
                     new Claim(ClaimTypes.Role, "Administrator"),
                     new Claim(ClaimTypes.Role, "MUD Master"),
                 }),

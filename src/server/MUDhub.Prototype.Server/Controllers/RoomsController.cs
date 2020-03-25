@@ -34,7 +34,7 @@ namespace MUDhub.Prototype.Server.Controllers
             return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));            
         }
 
-        [Authorize(Roles = "MUD Master")]
+        [Authorize()]
         [HttpPost()]
         public IActionResult CreateRooms([FromBody]CreateRoomsArgs args)
         {
