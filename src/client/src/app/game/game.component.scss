@@ -1,0 +1,19 @@
+@import "src/variables.scss";
+
+:host {
+	background-color: #222;
+	color: #fff;
+
+	display: flex;
+	flex-direction: column;
+}
+
+app-game-chat {
+	flex-grow: 1;
+	border: 1px solid blue;
+}
+
+app-info-bar {
+	height: $infobar-height;
+	border: 1px solid yellow;
+}

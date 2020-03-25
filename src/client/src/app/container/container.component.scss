@@ -11,9 +11,9 @@ app-global-chat {
 	width: 25%;
 	min-width: 300px;
 	max-width: 500px;
-	border-right: 1px solid black;
 }
 
 app-game {
 	flex-grow: 1;
+	border-left: 1px solid #111;
 }

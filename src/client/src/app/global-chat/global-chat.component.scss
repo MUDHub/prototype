@@ -1,6 +1,6 @@
 @import 'src/variables.scss';
 
-$background-color: #333;
+$background-color: #292929;
 
 :host {
 	background-color: $background-color;
@@ -25,41 +25,78 @@ $background-color: #333;
 	font-size: 90%;
 
 	.message {
+		$message-radius: 5px;
 
 		background-color: lighten($background-color, 10%);
-		border-radius: 7px;
+		border-radius: $message-radius;
 		margin-bottom: 0.5rem;
-		padding: 0.8rem;
+		padding: 0.3rem 0.8rem;
 		align-self: flex-start;
 		max-width: 90%;
+
+		word-break: break-word;
+
+
+		&.combine-down {
+			margin-bottom: 0;
+			border-bottom-left-radius: 0;
+		}
+		&.combine-up {
+			border-top-left-radius: 0;
+		}
 
 		&.own {
 			background-color: $primary;
 			align-self: flex-end;
+
+			&.combine-down {
+				margin-bottom: 0;
+				border-bottom-left-radius: $message-radius;
+				border-bottom-right-radius: 0;
+			}
+			&.combine-up {
+				border-top-left-radius: $message-radius;
+				border-top-right-radius: 0;
+			}
 		}
 
 
 		.sender {
 			font-size: 80%;
+			font-style: italic;
 		}
 	}
 }
 
 
-#message-input {
-	width: 100%;
-	resize: none;
-	padding: 1rem;
-	border: none;
-	outline: none;
 
-	background-color: lighten($background-color, 5%);
-	color: #fff;
-	font-size: 20px;
-	font-family: inherit;
+.input {
 
+	.error {
+		color: rgba(255, 255, 255, 0.7);
+		padding: 0.2rem;
+		background-color: $background-color;
+	}
+
+	#message-input {
+		width: 100%;
+		padding: 1rem;
+		border: none;
+		outline: none;
+
+		background-color: lighten($background-color, 5%);
+		color: #fff;
+		font-size: 20px;
+		font-family: inherit;
+		border: 2px solid transparent;
+		transition: background-color 0.2s ease-in-out;
+
+
+		&.error {
+			background-color: mix($background-color, rgb(194, 29, 29), 75%);
+		}
+	}
 }
-
 
 /* width */
 ::-webkit-scrollbar {

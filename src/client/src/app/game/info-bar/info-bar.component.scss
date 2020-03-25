@@ -1,0 +1,15 @@
+@import "src/variables.scss";
+
+:host {
+	display: flex;
+	flex-direction: row;
+}
+
+app-interaction {
+	flex-grow: 1;
+}
+
+app-map {
+	width: $infobar-width;
+	border: 1px solid red;
+}
