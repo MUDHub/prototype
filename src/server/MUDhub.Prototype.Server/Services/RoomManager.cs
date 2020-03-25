@@ -21,7 +21,7 @@ namespace MUDhub.Prototype.Server.Services
         public RoomManager()
         {
             _rooms = new List<Room>();
-            CreateDefaultRooms();
+            //CreateDefaultRooms();
         }
 
         private void CreateDefaultRooms()
