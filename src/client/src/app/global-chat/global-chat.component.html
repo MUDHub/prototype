@@ -1,34 +1,9 @@
 <h2 class="title">Globaler Chat</h2>
 
 <div class="chat">
-	<div class="message">
-		<div class="sender">Mario Lang</div>
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message own">
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message">
-		<div class="sender">Mario Lang</div>
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message">
-		<div class="sender">Mario Lang</div>
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message own">
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message own">
-		<div class="content"> provident.</div>
-	</div>
-	<div class="message">
-		<div class="sender">Mario Lang</div>
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
-	</div>
-	<div class="message">
-		<div class="sender">Mario Lang</div>
-		<div class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit voluptas veniam voluptates distinctio in et illo ea assumenda molestiae provident.</div>
+	<div class="message" *ngFor="let m of history" [class.own]="m.name === username">
+		<div class="sender" *ngIf="m.name !== username">{{ m.name }}</div>
+		<div class="content">{{ m.message }}</div>
 	</div>
 </div>
 

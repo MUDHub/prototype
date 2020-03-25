@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalChatService } from '../services/global-chat.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
 	selector: 'app-global-chat',
@@ -8,19 +9,41 @@ import { GlobalChatService } from '../services/global-chat.service';
 })
 export class GlobalChatComponent implements OnInit {
 
+	history: {
+		name: string,
+		message: string,
+		public: boolean
+	}[] = [];
+
+	username: string;
+
+
+
+
 	private publicMessageSubscription;
 	private privateMessageSubscription;
 
-	constructor(private chat: GlobalChatService) { }
+	constructor(private chat: GlobalChatService, private auth: AuthService) { }
 
 	ngOnInit() {
 		this.publicMessageSubscription = this.chat.newGlobalMessage$.subscribe(m => {
-			console.log('public', m);
+			this.history.push({
+				message: m.message,
+				name: m.name,
+				public: true
+			});
 		});
 
 		this.privateMessageSubscription = this.chat.newPrivateMessage$.subscribe(m => {
-			console.log('private', m);
+			this.history.push({
+				message: m.message,
+				name: m.name,
+				public: false
+			});
 		});
+
+
+		this.username = this.auth.user.username;
 	}
 
 

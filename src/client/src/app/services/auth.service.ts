@@ -18,6 +18,9 @@ export class AuthService {
 	get token() {
 		return this._token;
 	}
+	get user() {
+		return this._user;
+	}
 
 
 	constructor(private http: HttpClient) { }

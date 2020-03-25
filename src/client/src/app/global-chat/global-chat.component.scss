@@ -26,10 +26,6 @@ $background-color: #333;
 
 	.message {
 
-		.sender {
-			font-size: 80%;
-		}
-
 		background-color: lighten($background-color, 10%);
 		border-radius: 7px;
 		margin-bottom: 0.5rem;
@@ -40,6 +36,11 @@ $background-color: #333;
 		&.own {
 			background-color: $primary;
 			align-self: flex-end;
+		}
+
+
+		.sender {
+			font-size: 80%;
 		}
 	}
 }
