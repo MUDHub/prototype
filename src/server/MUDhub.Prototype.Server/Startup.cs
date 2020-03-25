@@ -118,6 +118,7 @@ namespace MUDhub.Prototype.Server
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MUDhub API", Version = "v1" });
             });
+            services.AddApplicationInsightsTelemetry();
 
         }
         
@@ -128,13 +129,6 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSpaStaticFiles();
-                app.Use(async (context, next) =>
-                {
-
-                    await next();
-
-
-                });
             }
             else
             {
