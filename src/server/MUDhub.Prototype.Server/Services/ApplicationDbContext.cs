@@ -15,23 +15,16 @@ namespace MUDhub.Prototype.Server.Services
         {
             Database.EnsureDeleted();
             Database.Migrate();
-            //Database.EnsureCreated();
             if (Users.FirstOrDefault() is null)
             {
                 CreateInitalUsers();
             }
 
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Room> Rooms { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Room> Rooms { get; set; } = null!;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
         private void CreateInitalUsers()
         {
             Users.Add(new User

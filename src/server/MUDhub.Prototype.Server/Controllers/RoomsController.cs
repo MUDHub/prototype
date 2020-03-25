@@ -25,16 +25,20 @@ namespace MUDhub.Prototype.Server.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetRooms([FromQuery]int? x = null, [FromQuery]int? y = null)
+        public IActionResult GetRoomsEndpoint([FromQuery]int? x = null, [FromQuery]int? y = null)
         {
+            if (x is null || y is null)
+            {
+                return Ok(_roomManager.GetRooms());
+            }
             return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));            
         }
 
-        [HttpPost]
+        [Authorize(Roles = "MUD Master")]
+        [HttpPost()]
         public IActionResult CreateRooms([FromBody]CreateRoomsArgs args)
         {
             _roomManager.CreateRooms(args.Rooms, args.Links);
-
             return Ok();
         }
     }

@@ -16,85 +16,31 @@ namespace MUDhub.Prototype.Server.Services
     public class RoomManager
     {
 
-        private List<Room> _rooms;
+        private readonly List<Room> _rooms;
 
         public RoomManager()
         {
             _rooms = new List<Room>();
-            //CreateDefaultRooms();
+            CreateDefaultRooms();
         }
 
         private void CreateDefaultRooms()
         {
-            //var r = new Room
-            //{
-            //    Name = "Kantine",
-            //    Position = (0, 0)
-            //};
-            //_rooms.Add(r.Position, r);
-            //r = new Room
-            //{
-            //    Name = "Klo",
-            //    Position = (1, 0)
-            //};
-            //_rooms.Add(r.Position, r);
-            //r = new Room
-            //{
-            //    Name = "Flur",
-            //    Position = (0, 1)
-            //};
-            //_rooms.Add(r.Position, r);
-            //r = new Room
-            //{
-            //    Name = "Flur",
-            //    Position = (1, 1)
-            //};
-            //_rooms.Add(r.Position, r);
-            //r = new Room
-            //{
-            //    Name = "Flur",
-            //    Position = (1, 2)
-            //};
-            //_rooms.Add(r.Position, r);
-            //r = new Room
-            //{
-            //    Name = "Klassenzimmer 1a",
-            //    Position = (1, 3)
-            //};
-            //_rooms.Add(r.Position, r);
-
-            //r = new Room
-            //{
-            //    Name = "Klassenzimmer 1b",
-            //    Position = (2, 2)
-            //};
-            //_rooms.Add(r.Position, r);
+            _rooms.Add(new Room
+            {
+                EnterMessage = "Sie sind in der Kantine!"
+            });
         }
 
         public Room? GetRoom(int x, int y)
         {
             return _rooms.FirstOrDefault(r => r.Position == new Point(x, y));
         }
-
-        public NavigationResult NavigateToRoom(User user, InteractionCommand command, string? targetRoom = null)
+        public Room? GetRoomById(string id)
         {
-            throw new NotImplementedException();
-            if ((command &
-                   (InteractionCommand.GoEast |
-                    InteractionCommand.GoNorth |
-                    InteractionCommand.GoSouth |
-                    InteractionCommand.GoWest)) == 0)
-            {
-                return new NavigationResult
-                {
-                    Succeeded = false,
-                };
-            }
-
+            return _rooms.FirstOrDefault(r => r.Id == id);
         }
-
         public IEnumerable<Room> GetRooms() => _rooms;
-
         public void CreateRooms(IEnumerable<RoomCreations> rooms, IEnumerable<RoomCreationLinks> links)
         {
             if (rooms is null)

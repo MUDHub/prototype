@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Hubs
 {
-    public interface ICommandClientContract
+    public interface IGameClientContract
     {
         public Task ReceiveMainMessage(string message, ChannelScope scope = ChannelScope.Public);
 

@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using MUDhub.Prototype.Server.Configurations;
 using MUDhub.Prototype.Server.Hubs;
 using MUDhub.Prototype.Server.Services;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace MUDhub.Prototype.Server
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _useProxy = Configuration.GetValue<bool>("spaAsStandalone");
             _spaDestiantion = Configuration["spaDestination"];
         }
@@ -37,6 +38,7 @@ namespace MUDhub.Prototype.Server
                 conf.RootPath = _spaDestiantion;
             });
             services.AddScoped<UserManager>();
+            services.AddScoped<NavigationService>();
             services.AddSingleton<RoomManager>();
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlite("Data Source=myDatabase.db"));
@@ -126,8 +128,8 @@ namespace MUDhub.Prototype.Server
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                //endpoints.MapHub<ChatHub>("/chat");
-                endpoints.MapHub<CommandHub>("/command");
+                endpoints.MapHub<GameHub>("/game");
+                endpoints.MapHub<ChatHub>("/chat");
             });
 
             if (!env.IsDevelopment())

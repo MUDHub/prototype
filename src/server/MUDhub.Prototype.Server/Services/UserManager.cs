@@ -14,27 +14,27 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace MUDhub.Prototype.Server.Services
 {
     public class UserManager
     {
 
-        public UserManager(ApplicationDbContext dbContext, IOptions<UserSettings> options, ILogger<UserManager> logger)
+        public UserManager(ApplicationDbContext dbContext, IOptions<UserSettings> options)
         {
 
             _dbContext = dbContext;
-            _logger = logger;
             _userSettings = options.Value;
         }
 
         private readonly UserSettings _userSettings;
         private readonly ApplicationDbContext _dbContext;
-        private readonly ILogger<UserManager> _logger;
 
         public async Task<LoginResult> LoginAsync(string username, string password)
         {
-            User? user = await GetUserAsync(username);
+            User? user = await GetUserAsync(username)
+                .ConfigureAwait(false);
             if (user == null)
                 return new LoginResult(false);
 
@@ -48,13 +48,43 @@ namespace MUDhub.Prototype.Server.Services
             return new LoginResult(true, token, user);
 
         }
-
-        private bool CheckPassword(User user, string password)
+        public async Task<RegisterResult> RegisterAsync(string username, string password, bool autologin = true)
         {
-            string passwordHash = CreatePasswordHash(password);
-            return passwordHash == user.PasswordHash;
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username)
+                .ConfigureAwait(false);
+            if (!(user is null))
+                return new RegisterResult(false, true);
+            user = new User
+            {
+                Username = username,
+                PasswordHash = CreatePasswordHash(password)
+            };
 
+            _dbContext.Users.Add(user);
+            await _dbContext.SaveChangesAsync()
+                .ConfigureAwait(false);
+            LoginResult? result = null;
+            if (autologin)
+            {
+                result = await LoginAsync(username, password)
+                    .ConfigureAwait(false);
+            }
+            return new RegisterResult(true, loginResult: result);
         }
+        public Task<User?> GetUserAsync(string name)
+        {
+            return _dbContext.Users.FirstOrDefaultAsync(u => u.Username == name);
+        }
+
+        public Task<User?> GetUserByIdAsync(string id)
+        {
+            return _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+        public IAsyncEnumerable<User> GetUsersAsync()
+        {
+            return _dbContext.Users.AsAsyncEnumerable();
+        }
+
 
         public static string CreatePasswordHash(string password)
         {
@@ -64,16 +94,21 @@ namespace MUDhub.Prototype.Server.Services
 
             string passwordHash = string.Create(data.Length, data, (target, arg) =>
             {
-                for (int i = 0; i < arg.Length; i+=2)
+                for (int i = 0; i < arg.Length; i += 2)
                 {
-                    var t = arg[i].ToString("X2");
+                    var t = arg[i].ToString("X2", CultureInfo.InvariantCulture);
                     target[i] = Convert.ToChar(t[0]);
-                    target[i+1] = Convert.ToChar(t[1]);
+                    target[i + 1] = Convert.ToChar(t[1]);
                 }
             });
             return passwordHash;
         }
+        private bool CheckPassword(User user, string password)
+        {
+            string passwordHash = CreatePasswordHash(password);
+            return passwordHash == user.PasswordHash;
 
+        }
         private string CreateToken(string userid)
         {
             // authentication successful so generate jwt token
@@ -84,44 +119,14 @@ namespace MUDhub.Prototype.Server.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, userid),
-                    //new Claim(ClaimTypes.)
+                    new Claim(ClaimTypes.Role, "Administrator"),
+                    new Claim(ClaimTypes.Role, "MUD Master"),
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
-        }
-
-        public async Task<RegisterResult> RegisterAsync(string username, string password, bool autologin = true)
-        {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
-            if (!(user is null))
-                return new RegisterResult(false, true);
-            user = new User
-            {
-                Username = username,
-                PasswordHash = CreatePasswordHash(password)
-            };
-
-            _dbContext.Users.Add(user);
-            await _dbContext.SaveChangesAsync();
-            LoginResult? result = null;
-            if (autologin)
-            {
-                result = await LoginAsync(username, password);
-            }
-            return new RegisterResult(true, loginResult: result);
-        }
-
-        public Task<User?> GetUserAsync(string name)
-        {
-            return _dbContext.Users.FirstOrDefaultAsync(u => u.Username == name);
-        }
-
-        public IAsyncEnumerable<User> GetUsersAsync()
-        {
-            return _dbContext.Users.AsAsyncEnumerable();
         }
     }
 
