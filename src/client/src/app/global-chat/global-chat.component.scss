@@ -11,10 +11,19 @@
 .chat {
 	text-align: left;
 	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
 
 	border: 1px solid blue;
 	padding: 1rem;
+
+	.message {
+
+
+		&.own {
+			text-align: right;;
+		}
+	}
 }
 
 
