@@ -1,14 +1,20 @@
 
-<form>
-
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
 	<img src="/assets/mudhub_logo_light.png" alt="logo">
 
-	<!-- <h1>Login</h1> -->
+	<div class="form-control">
+		<input type="text" name="username" formControlName="username" placeholder="username" autocomplete="username">
+		<div class="errors" *ngIf="isSubmitted && loginForm.controls.username.errors">
+			<div *ngIf="loginForm.controls.username.errors.required">Username is required</div>
+		</div>
+	</div>
+	<div class="form-control">
+		<input type="password" name="password" formControlName="password" placeholder="password" autocomplete="current-password">
+		<div class="errors" *ngIf="isSubmitted && loginForm.controls.password.errors">
+			<div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+		</div>
+	</div>
 
-	<input placeholder="username" name="username" type="text">
-	<input placeholder="password" name="password" type="password">
-
-	<button>Submit</button>
-
+	<button class="login" type="submit" [disabled]="isLoading">Anmelden</button>
 </form>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { environment as env } from 'src/environments/environment';
 import { Subject } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,9 +18,11 @@ export class GlobalChatService {
 
 	private connection: signalR.HubConnection;
 
-	constructor() {
+	constructor(private auth: AuthService) {
 		this.connection = new signalR.HubConnectionBuilder()
-			.withUrl(env.url + 'chat')
+			.withUrl(env.url + 'chat', {
+				accessTokenFactory: () => this.auth.token
+			})
 			.build();
 
 

@@ -20,10 +20,10 @@ import { GameComponent } from './game/game.component';
 	],
 	imports: [
 		BrowserModule,
+		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 		AppRoutingModule,
-		FormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
