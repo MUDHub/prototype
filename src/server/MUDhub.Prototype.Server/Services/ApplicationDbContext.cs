@@ -26,9 +26,6 @@ namespace MUDhub.Prototype.Server.Services
 
         }
 
-        public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Room> Rooms { get; set; } = null!;
-
         private void CreateInitalUsers()
         {
             var user = new User
