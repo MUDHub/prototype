@@ -16,7 +16,6 @@ input, button {
 	border-radius: 4px;
 }
 
-
 button {
 	background-color: $primary;
 	color: #fff;
@@ -25,8 +24,6 @@ button {
 button:active {
 	background-color: darken($primary, 8%);
 }
-
-
 
 form{
 	width: 350px;
