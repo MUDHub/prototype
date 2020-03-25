@@ -16,6 +16,9 @@ export class GlobalChatService {
 	private newPrivateMessageSubject = new Subject<{ message: string, name: string }>();
 	public newPrivateMessage$ = this.newPrivateMessageSubject.asObservable();
 
+	get isConnected() {
+		return this.connection.state === signalR.HubConnectionState.Connected;
+	}
 
 	private connection: signalR.HubConnection;
 
@@ -43,11 +46,11 @@ export class GlobalChatService {
 
 
 	public sendGlobalMessage(message: string) {
-		this.connection.invoke('sendGlobalMessage', message);
+		return this.connection.invoke('sendGlobalMessage', message);
 	}
 
 	public sendPrivateMessage(message: string, username: string) {
-		this.connection.invoke('sendPrivateMessage', message, username);
+		return this.connection.invoke('sendPrivateMessage', message, username);
 	}
 
 

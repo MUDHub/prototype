@@ -1,10 +1,18 @@
-<h2 class="title">Globaler Chat</h2>
+<h2 class="title" (click)="scrollToBottom()">Globaler Chat</h2>
 
-<div class="chat">
-	<div class="message" *ngFor="let m of history" [class.own]="m.name === username">
-		<div class="sender" *ngIf="m.name !== username">{{ m.name }}</div>
+<div class="chat" #chat>
+	<div class="message" *ngFor="let m of history; let i = index"
+		[class.own]="m.name === username || m.name === undefined"
+		[class.private]="m.private"
+		[class.combine-down]="history[i + 1]?.name === m.name"
+		[class.combine-up]="history[i - 1]?.name === m.name">
+		<div class="sender" *ngIf="m.name !== username && history[i - 1]?.name !== m.name">{{ m.name }}</div>
 		<div class="content">{{ m.message }}</div>
 	</div>
 </div>
 
-<input type="text" id="message-input" placeholder="Nachricht" (keydown.enter)="send(input)" #input>
+<div class="input">
+	<div class="error" *ngIf="error">{{ error }}</div>
+	<input type="text" id="message-input" [class.error]="error" placeholder="Nachricht" (keydown.enter)="send(input)"
+		#input />
+</div>

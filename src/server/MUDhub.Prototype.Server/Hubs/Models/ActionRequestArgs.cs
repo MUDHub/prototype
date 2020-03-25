@@ -4,7 +4,7 @@ namespace MUDhub.Prototype.Server.Hubs.Models
 {
     public class ActionRequestArgs
     {
-        public GameCommand Command { get; set; }
+        public InteractionCommand Command { get; set; }
     }
 
 }
