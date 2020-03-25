@@ -1,0 +1,33 @@
+:host {
+	background-color: #333;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+
+
+.chat {
+	text-align: left;
+	display: flex;
+	flex-grow: 1;
+
+	border: 1px solid blue;
+	padding: 1rem;
+}
+
+
+#message-input {
+	width: 100%;
+	resize: none;
+	padding: 1rem;
+	border: none;
+	outline: none;
+
+	background-color: #444;
+	color: #fff;
+	font-size: 20px;
+	font-family: inherit;
+
+}
