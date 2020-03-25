@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MUDhub.Prototype.Server.ApiModels
+namespace MUDhub.Prototype.Server.Controllers.Models
 {
     public class AuthenticateModel
     {

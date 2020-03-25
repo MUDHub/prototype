@@ -3,9 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
+    
+    <ApplicationInsightsResourceId>/subscriptions/b44d9257-ee7a-43f2-bcf4-546c09e6b2ed/resourceGroups/mudhub/providers/microsoft.insights/components/mudhub-prototype</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
+  
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
   
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />

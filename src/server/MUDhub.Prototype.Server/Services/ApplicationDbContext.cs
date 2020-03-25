@@ -57,5 +57,7 @@ namespace MUDhub.Prototype.Server.Services
             Users.Add(user);
             SaveChanges();
         }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Room> Rooms { get; set; } = null!;    
     }
 }

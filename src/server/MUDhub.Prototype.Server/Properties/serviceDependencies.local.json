@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "appInsights1": {
+      "resourceId": "/subscriptions/b44d9257-ee7a-43f2-bcf4-546c09e6b2ed/resourceGroups/mudhub/providers/microsoft.insights/components/mudhub-prototype",
+      "type": "appInsights.azure",
+      "connectionId": null
+    }
+  }
+}

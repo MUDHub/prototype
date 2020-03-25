@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using MUDhub.Prototype.Server.ApiModels;
+using MUDhub.Prototype.Server.Controllers.Models;
 using MUDhub.Prototype.Server.Models;
 using MUDhub.Prototype.Server.Services;
 using System;

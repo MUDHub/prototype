@@ -9,10 +9,12 @@ import { LoginComponent } from './login/login.component';
 import { ContainerComponent } from './container/container.component';
 import { GlobalChatComponent } from './global-chat/global-chat.component';
 import { GameComponent } from './game/game.component';
+
 import { GameChatComponent } from './game/game-chat/game-chat.component';
 import { InfoBarComponent } from './game/info-bar/info-bar.component';
 import { MapComponent } from './game/info-bar/map/map.component';
 import { InteractionComponent } from './game/info-bar/interaction/interaction.component';
+
 
 @NgModule({
 	declarations: [
@@ -25,6 +27,7 @@ import { InteractionComponent } from './game/info-bar/interaction/interaction.co
 		InfoBarComponent,
 		MapComponent,
 		InteractionComponent,
+
 	],
 	imports: [
 		BrowserModule,
