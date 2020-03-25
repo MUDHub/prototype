@@ -20,8 +20,9 @@ jobs:
       with:
         dotnet-version: 3.1.200
     - name: Build Server with dotnet
-      run: dotnet build src/server/**.sln -c Release -o ${{ env.WORKDIR_DEST }}
-    
+      run: dotnet publish -r win-x86 --self-contained true -o ${{ env.WORKDIR_DEST }}
+      working-directory: src/server
+      
     - name: Setup Node.js 12
       uses: actions/setup-node@v1
       with:
