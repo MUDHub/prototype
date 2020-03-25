@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ContainerComponent } from './container/container.component';
 import { GlobalChatComponent } from './global-chat/global-chat.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
-		ContainerComponent
+		ContainerComponent,
+		GlobalChatComponent,
+		GameComponent,
 	],
 	imports: [
 		BrowserModule,
