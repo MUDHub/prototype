@@ -1,5 +1,6 @@
-﻿ using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
+using MUDhub.Prototype.Server.Models;
+using MUDhub.Prototype.Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +8,53 @@ using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Hubs
 {
-    public class ChatHub  : Hub
+    public class ChatHub : Hub<IChatClientContract>
     {
-        public Task SendMessage(string username, string message)
+        private readonly UserManager _userManager;
+
+        public ChatHub(UserManager userManager)
         {
-            return Clients.All.SendAsync("receiveMessage", username, message, DateTime.Now);
+            _userManager = userManager;
         }
 
-
-        /*
-        public Task SendToRoom(int roomname, string message)
+        public async Task SendGlobalMessage(string message)
         {
-            return Clients.Group("room"+roomname).SendAsync("receiveRoom", message);
+            User user = await GetActualUserAsync()
+                .ConfigureAwait(false);
+            Clients.All.ReceiveGlobalMessage(message, user.Username);
         }
 
-        public Task ChangeRoom(string room)
+        public async Task SendPrivateMessage(string message, string username)
         {
-            return Groups.AddToGroupAsync(Context.ConnectionId, room);
-        }
-        */
+            var targetUser = await _userManager.GetUserAsync(username)
+                .ConfigureAwait(false);
+            if (targetUser is null)
+            {
+                //Todo: handle later not with a exception.
+                throw new InvalidOperationException();
+            }
 
+            var user =  await GetActualUserAsync()
+                   .ConfigureAwait(false);
+            Clients.User(targetUser.Id).ReceivePrivateMessage(message, user.Username);
+        }
 
         public override Task OnConnectedAsync()
         {
-            // Groups.AddToGroupAsync(Context.ConnectionId, "room1");
+            //Maybe later Save Messages.
             return base.OnConnectedAsync();
+        }
+
+        private async Task<User> GetActualUserAsync()
+        {
+            var user = await _userManager.GetUserByIdAsync(Context.UserIdentifier)
+                .ConfigureAwait(false);
+            if (user is null)
+            {
+                //Todo: handle later not with a exception.
+                throw new InvalidOperationException();
+            }
+            return user;
         }
     }
 }

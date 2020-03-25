@@ -11,8 +11,8 @@ namespace MUDhub.Prototype.Server.Models
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string Username { get; set; }
-        public string PasswordHash { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
 
     }
 }

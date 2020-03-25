@@ -6,31 +6,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { ChatModule } from './shell/chat/chat.module';
-import { RoomsModule } from './shell/rooms/rooms.module';
-import { ShellComponent } from './shell/shell.component';
+import { ContainerComponent } from './container/container.component';
+import { GlobalChatComponent } from './global-chat/global-chat.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
-		ShellComponent,
+		ContainerComponent,
+		GlobalChatComponent,
+		GameComponent,
 	],
 	imports: [
 		BrowserModule,
-		ChatModule,
-		RoomsModule,
-		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-		AppRoutingModule
+		AppRoutingModule,
+		FormsModule
 	],
-	providers: [
-		{
-			provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
-		}
-	],
+	providers: [],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,21 +13,18 @@ namespace MUDhub.Prototype.Server.Services
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureDeleted();
             Database.Migrate();
-            //Database.EnsureCreated();
             if (Users.FirstOrDefault() is null)
             {
                 CreateInitalUsers();
             }
-            
+
         }
 
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Room> Rooms { get; set; } = null!;
 
-        public DbSet<User> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
         private void CreateInitalUsers()
         {
             Users.Add(new User
@@ -39,6 +36,11 @@ namespace MUDhub.Prototype.Server.Services
             {
                 Username = "mario",
                 PasswordHash = UserManager.CreatePasswordHash("password")
+            });
+            Users.Add(new User
+            {
+                Username = "moris",
+                PasswordHash = UserManager.CreatePasswordHash("test")
             });
             SaveChanges();
         }

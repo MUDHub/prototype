@@ -1,81 +1,52 @@
-$button-color: rgb(224, 93, 6);
+@import "src/variables.scss";
 
-:host {
-	background-color: #fff;
+:host{
 	display: flex;
 	flex-direction: column;
-
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-
-
-	width: 95%;
-	max-width: 500px;
-	padding: 2rem;
-
-	border-radius: 4px;
-
-	box-shadow: 0 0 12px -4px rgba(0, 0, 0, 0.2);
-}
-
-form {
-	display: flex;
-	flex-direction: column;
-}
-
-.form-control {
-	display: flex;
-	flex-direction: column;
-
-	&:not(:last-child) {
-		margin-bottom: 1rem;
-	}
-}
-
-.form-control .errors {
-	color: red;
-	font-size: 80%;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	background-color: darken($primary, 15%);
 }
 
 input, button {
-	padding: 1rem;
 	border: 1px solid rgba(0, 0, 0, 0.2);
-	background-color: #f9f9f9;
-	text-align: center;
-	font-family: inherit;
 	outline: none;
-	transition: all 0.15s ease-in-out;
-	border-radius: 6px;
+	padding: 0.75rem;
+	border-radius: 4px;
 }
 
-input:focus {
-	box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.3);
-}
-
-#submit {
-	background-color: $button-color;
+button {
+	background-color: $primary;
 	color: #fff;
-	cursor: pointer;
 }
 
-#submit:hover {
-	background-color: darken($button-color, 5);
+button:active {
+	background-color: darken($primary, 8%);
 }
 
-#submit:disabled {
-	background-color: desaturate($button-color, 100%);
-	color: #bbb;
-	cursor: auto;
-}
+form{
+	width: 350px;
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	padding: 3rem;
+	border-radius: 10px;
+	box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2);
 
-small {
-	position: absolute;
-	top: calc(100% + 2rem);
-	left: 0;
-	text-align: center;
-	display: block;
-	width: 100%;
-	color: #999;
+	img{
+		width: 12rem;
+		margin: 0rem auto 1rem auto;
+		padding-bottom: 1rem;
+	}
+
+	h1{
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	input {
+		margin-bottom: 0.5rem;
+	}
+
 }
