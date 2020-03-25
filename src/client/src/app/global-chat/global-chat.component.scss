@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 :host {
 	background-color: #333;
 	color: #fff;
@@ -6,22 +8,28 @@
 	text-align: center;
 }
 
-
-
 .chat {
 	text-align: left;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-
-	border: 1px solid blue;
 	padding: 1rem;
+	overflow-y: scroll;
 
 	.message {
 
+		background-color: grey;
+		border-radius: 7px;
+		margin-bottom: 1rem;
+		padding: 0.5rem;
+		align-self: flex-start;
+		max-width: 90%;
 
 		&.own {
-			text-align: right;;
+			border-radius: 7px;
+			padding: 0.5rem;
+			background-color: $primary;
+			align-self: flex-end;
 		}
 	}
 }
