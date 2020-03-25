@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace MUDhub.Prototype.Server.Models
 
     }
 
-    public struct Point
+    [Owned]
+    public class Point
     {
 
         public Point(int x, int y)
@@ -39,8 +41,8 @@ namespace MUDhub.Prototype.Server.Models
 
         [Key]
         public string Uid { get; set; }
-        public int X { get;  }
-        public int Y { get;  }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -14,7 +14,8 @@ namespace MUDhub.Prototype.Server.Services
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
             Database.EnsureDeleted();
-            Database.Migrate();
+            //Database.Migrate();
+            Database.EnsureCreated();
             if (Users.FirstOrDefault() is null)
             {
                 CreateInitalUsers();
