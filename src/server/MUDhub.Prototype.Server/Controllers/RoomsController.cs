@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MUDhub.Prototype.Server.Controllers.Models;
 using MUDhub.Prototype.Server.Models;
 using MUDhub.Prototype.Server.Services;
 
@@ -26,18 +27,14 @@ namespace MUDhub.Prototype.Server.Controllers
         [HttpGet()]
         public IActionResult GetRooms([FromQuery]int? x = null, [FromQuery]int? y = null)
         {
-            return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));
-
-            
+            return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));            
         }
 
-
-
-
-        [HttpPost("")]
-        public IActionResult CreateRoom([FromBody]CreateRoomArgs args)
+        [HttpPost]
+        public IActionResult CreateRooms([FromBody]CreateRoomsArgs args)
         {
-            _roomManager.CreateRooms(args.Rooms);
+            _roomManager.CreateRooms(args.Rooms, args.Links);
+
             return Ok();
         }
     }

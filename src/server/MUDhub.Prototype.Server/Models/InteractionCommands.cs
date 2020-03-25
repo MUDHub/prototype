@@ -5,20 +5,21 @@ using System.Threading.Tasks;
 
 namespace MUDhub.Prototype.Server.Models
 {
+    [Flags]
     public enum InteractionCommand
     {
         //Area Navigations
-        GoWest,
-        GoNorth,
-        GoEast,
-        GoSouth,
-        JoinPortal, //Also JoinDungeon
+        GoWest = 1,
+        GoNorth = 2,
+        GoEast = 4,
+        GoSouth = 8,
+        JoinPortal = 16, //Also JoinDungeon
 
         //Room Interactions
-        InspectRoom,
-        StartFight,
-        TalkToNpc,
-        PickItem,
+        InspectRoom = 32,
+        StartFight = 64,
+        TalkToNpc = 128,
+        PickItem = 256,
 
         //TalkToPlayer,
     }

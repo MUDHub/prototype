@@ -20,9 +20,11 @@ namespace MUDhub.Prototype.Server.Services
             {
                 CreateInitalUsers();
             }
-            
-        }
 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Room> Rooms { get; set; }
