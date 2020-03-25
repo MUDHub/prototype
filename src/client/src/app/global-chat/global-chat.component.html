@@ -1,7 +1,9 @@
 <h2 class="title" (click)="scrollToBottom()">Globaler Chat</h2>
 
 <div class="chat" #chat>
-	<div class="message" *ngFor="let m of history; let i = index" [class.own]="m.name === username"
+	<div class="message" *ngFor="let m of history; let i = index"
+		[class.own]="m.name === username || m.name === undefined"
+		[class.private]="m.private"
 		[class.combine-down]="history[i + 1]?.name === m.name"
 		[class.combine-up]="history[i - 1]?.name === m.name">
 		<div class="sender" *ngIf="m.name !== username && history[i - 1]?.name !== m.name">{{ m.name }}</div>
