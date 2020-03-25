@@ -27,8 +27,8 @@ export class GlobalChatComponent implements OnInit {
 
 	send(input: HTMLInputElement) {
 		console.log('sending', input.value);
-		input.value = '';
 		this.chat.sendGlobalMessage(input.value);
+		input.value = '';
 	}
 
 }
