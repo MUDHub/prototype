@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { LoginComponent } from './login/login.component';
+import { GlobalChatComponent } from './game/global-chat/global-chat.component';
+import { ContainerComponent } from './container/container.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		GameComponent,
-		LoginComponent
+		LoginComponent,
+		GlobalChatComponent,
+		ContainerComponent
 	],
 	imports: [
 		BrowserModule,
