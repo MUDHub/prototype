@@ -1,11 +1,17 @@
 @import 'src/variables.scss';
 
+$background-color: #333;
+
 :host {
-	background-color: #333;
+	background-color: $background-color;
 	color: #fff;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
+}
+
+.title {
+	margin-top: 1rem;
 }
 
 .chat {
@@ -13,21 +19,25 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	padding: 1rem;
+	padding: 0.5rem;
 	overflow-y: scroll;
+
+	font-size: 90%;
 
 	.message {
 
-		background-color: grey;
+		.sender {
+
+		}
+
+		background-color: lighten($background-color, 10%);
 		border-radius: 7px;
-		margin-bottom: 1rem;
-		padding: 0.5rem;
+		margin-bottom: 0.5rem;
+		padding: 0.8rem;
 		align-self: flex-start;
 		max-width: 90%;
 
 		&.own {
-			border-radius: 7px;
-			padding: 0.5rem;
 			background-color: $primary;
 			align-self: flex-end;
 		}
@@ -42,9 +52,29 @@
 	border: none;
 	outline: none;
 
-	background-color: #444;
+	background-color: lighten($background-color, 5%);
 	color: #fff;
 	font-size: 20px;
 	font-family: inherit;
 
+}
+
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: $background-color;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: lighten($background-color, 15%);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
 }
