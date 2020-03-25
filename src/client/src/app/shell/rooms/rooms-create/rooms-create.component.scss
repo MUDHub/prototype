@@ -21,12 +21,15 @@
 	.row {
 		display: flex;
 		flex-direction: row;
-		flex-grow: 1;
+		flex: 1 1 0px;
 	}
 }
 
 .room {
 	border: 1px dashed rgba(0, 0, 0, 0.2);
-	display: block;
-	flex-grow: 1;
+	flex: 1 1 0px;
+
+	&.active {
+		border: 1px solid rgba(0, 0, 0, 0.4);
+	}
 }

@@ -7,20 +7,24 @@ import { Component, OnInit, Input, HostBinding, HostListener } from '@angular/co
 })
 export class RoomComponent implements OnInit {
 
+	constructor() { }
+
 	@Input() x: number;
 	@Input() y: number;
 
 	room: string = undefined;
 
-	constructor() { }
+	@HostBinding('class.active')
+	get isActive() {
+		return this.room !== undefined;
+	}
 
 	ngOnInit(): void {
 	}
 
-
 	@HostListener('click')
 	addRoom() {
-		this.room = `Raum (${this.x}, ${this.y})`;
+		this.room = `( RAUM )`;
 	}
 
 }
