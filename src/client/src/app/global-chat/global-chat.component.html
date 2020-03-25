@@ -18,4 +18,4 @@
 	</div>
 </div>
 
-<textarea type="text" id="message-input" placeholder="Nachricht"></textarea>
+<input type="text" id="message-input" placeholder="Nachricht" (keydown.enter)="send(input)" #input>
