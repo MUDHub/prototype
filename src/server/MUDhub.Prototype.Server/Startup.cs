@@ -96,23 +96,23 @@ namespace MUDhub.Prototype.Server
                 // See https://docs.microsoft.com/aspnet/core/signalr/security#access-token-logging
                 // for more information about security considerations when using
                 // the query string to transmit the access token.
-                //x.Events = new JwtBearerEvents
-                //{
-                //    OnMessageReceived = context =>
-                //    {
-                //        var accessToken = context.Request.Query["access_token"];
+                x.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
 
-                //        // If the request is for our hub...
-                //        var path = context.HttpContext.Request.Path;
-                //        if (!string.IsNullOrEmpty(accessToken) &&
-                //            (path.StartsWithSegments("/hubs")))
-                //        {
-                //            // Read the token out of the query string
-                //            context.Token = accessToken;
-                //        }
-                //        return Task.CompletedTask;
-                //    }
-                //};
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/hubs")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             services.AddSwaggerGen(c =>
@@ -128,18 +128,19 @@ namespace MUDhub.Prototype.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSpaStaticFiles();
+
             }
             else
             {
                 app.UseExceptionHandler("/Error");
             }
+            app.UseSpaStaticFiles();
 
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUDhub API");
-            //});
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUDhub API");
+            });
 
             app.UseAuthentication();
             app.UseRouting();
@@ -165,7 +166,6 @@ namespace MUDhub.Prototype.Server
 
             if (!env.IsDevelopment())
             {
-                
                 app.UseSpa(spa =>
                 {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
