@@ -27,11 +27,9 @@ namespace MUDhub.Prototype.Server.Hubs
         }
 
 
-        public override Task OnConnectedAsync()
+        public NavigationResult JoinWorld()
         {
-            _navigationService.UserJoinedTheWorld(Context.UserIdentifier);
-            return Task.CompletedTask;
+            return _navigationService.UserJoinedTheWorld(Context.UserIdentifier);
         }
-        // ReceiveGameMessage
     }
 }

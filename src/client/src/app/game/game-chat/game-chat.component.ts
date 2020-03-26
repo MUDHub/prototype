@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService, MessageType } from 'src/app/services/game.service';
+import { GameService } from 'src/app/services/game.service';
+import { MessageType } from "src/app/model/MessageType";
 
 @Component({
 	selector: 'app-game-chat',

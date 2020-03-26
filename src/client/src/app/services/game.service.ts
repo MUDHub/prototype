@@ -2,12 +2,21 @@ import { Injectable, EventEmitter } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import { environment as env } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Direction } from '../model/Direction';
+import { MessageType } from '../model/MessageType';
+import { NavigationResult } from '../model/NavigationResult';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameService {
+	private changeRoomSubject = new BehaviorSubject<string>(undefined);
+	public changeRoom$ = this.changeRoomSubject.asObservable();
+
+	public get actualRoom() {
+		return this.changeRoomSubject.getValue();
+	}
 
 	public onClear = new EventEmitter();
 
@@ -33,19 +42,30 @@ export class GameService {
 		});
 
 
-		this.connection.start();
+		this.connection.start().then(async () => {
+			const result = await this.connection.invoke<NavigationResult>('joinWorld');
+			this.changeRoomSubject.next(result.roomId);
+		});
 	}
 
 	async tryEnterRoom(direction: Direction) {
-		const result = await this.connection.invoke<{ message: string, succeeded: boolean }>('tryEnterRoom', direction);
+
+		const result = await this.connection.invoke<NavigationResult>('tryEnterRoom', direction);
 		if (!result.succeeded) {
 			this.receiveGameMessageSubject.next({ message: `Es befindet sich kein Raum im ${Direction[direction]}`, type: MessageType.Server});
+		} else {
+			this.changeRoomSubject.next(result.roomId);
 		}
+
 	}
 
 
 	public sendUserInput(message: string) {
 		this.receiveGameMessageSubject.next({ message, type: MessageType.Client });
+	}
+
+	public displayMessage(message: string) {
+		this.receiveGameMessageSubject.next({ message, type: MessageType.Server });
 	}
 
 	public clearChat() {
@@ -55,5 +75,6 @@ export class GameService {
 }
 
 
-export enum Direction { North, East, West, South }
-export enum MessageType { Server, Client }
+
+
+

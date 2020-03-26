@@ -7,12 +7,11 @@
 
 app-interaction {
 	flex-grow: 1;
-	border: 1px solid lightblue;
 	margin: 0.2rem;
 }
 
 app-map {
 	width: $infobar-width;
-	border: 1px solid red;
 	margin: 0.2rem;
+	background-color: #2a2a2a;
 }

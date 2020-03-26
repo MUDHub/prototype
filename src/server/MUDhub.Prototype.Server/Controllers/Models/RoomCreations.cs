@@ -9,6 +9,8 @@ namespace MUDhub.Prototype.Server.Controllers.Models
         [Required]
         public int Id { get; set; }
 
+        public string? Name { get; set; }
+
         public string? Description { get; set; }
 
         public string? EnterMessage { get; set; }

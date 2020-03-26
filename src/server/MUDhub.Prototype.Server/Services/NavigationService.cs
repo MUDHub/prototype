@@ -101,7 +101,7 @@ namespace MUDhub.Prototype.Server.Services
 
             // Add event messages
             NotifyClient(userId, newRoom.EnterMessage);
-            return new NavigationResult(true, newRoom.EnterMessage);
+            return new NavigationResult(true, newRoom.EnterMessage, newRoom.Id, oldRoom.Id);
         }
 
 
@@ -114,12 +114,11 @@ namespace MUDhub.Prototype.Server.Services
                 var room = _roomManager.GetRoomById(_roomToJoin);
                 //add Event messages
                 NotifyClient(userId, room!.EnterMessage);
-                return new NavigationResult(true, room!.EnterMessage);
-
+                return new NavigationResult(true, room!.EnterMessage, _activeRooms[userId]);
             }
             else
             {
-                return new NavigationResult(false, string.Empty);
+                return new NavigationResult(false, string.Empty, _activeRooms[userId]);
             }
         }
 

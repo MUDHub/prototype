@@ -2,6 +2,7 @@
 using MUDhub.Prototype.Server.Controllers;
 using MUDhub.Prototype.Server.Controllers.Models;
 using MUDhub.Prototype.Server.Models;
+using MUDhub.Prototype.Server.Services.Models;
 using SQLitePCL;
 using System;
 using System.Collections.Generic;
@@ -31,27 +32,49 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 1,
+                    Name = "Kantine",
                     EnterMessage = "Sie betreten die Kantine.",
-                    Description = "Das ist die Kantine",
-                    X = 0,
+                    Description = "Eine Kantine, in der es mal mehr, mal weniger versalzenes Essen gibt",
+                    X = 2,
                     Y = 0
                 },
                 new RoomCreations
                 {
                     Id = 2,
-                    EnterMessage = "Sieht der Gang nicht toll aus?",
-                    Description = "Das ist der Gang",
+                    Name = "Flur",
+                    EnterMessage = "Du befindest dich in einem endlos scheinenden Flur...",
+                    Description = "Ein Gang",
                     X = 1,
                     Y = 0
                 },
                 new RoomCreations
                 {
                     Id = 3,
-                    EnterMessage = "Mehr als 3 mal schütteln ist Vergnügen",
+                    Name = "Toiletten",
+                    EnterMessage = "Du betrittst das Klo, Händewaschen nicht vergessen!",
                     Description = "Das ist das Klo",
-                    X = 2,
+                    X = 0,
                     Y = 0
-                }
+                },
+                new RoomCreations
+                {
+                    Id = 4,
+                    Name = "Flur",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 1,
+                    Y = 1
+                },
+                new RoomCreations
+                {
+                    Id = 5,
+                    Name = "Büro",
+                    EnterMessage = "Ein leerstehendes Büro. Wem das wohl gehört...?",
+                    Description = "Eine Türe zu einen kleinen Büro",
+                    X = 2,
+                    Y = 1
+                },
+
             };
 
             List<RoomCreationLinks> roomLinks = new List<RoomCreationLinks>()
@@ -65,11 +88,47 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Room1 = 2,
                     Room2 = 3
-                }
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 2,
+                    Room2 = 4
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 4,
+                    Room2 = 5
+                },
             };
             CreateRooms(rooms, roomLinks);
         }
 
+        public IEnumerable<(CardinalPoint ,Room)> GetRoomNeigbours(string id)
+        {
+            var room = GetRoomById(id);
+            if (room is null)
+            {
+                //Todo: add exception message.
+                throw new ArgumentException();
+            }
+            
+            if (!(room.EastId is null))
+            {
+                yield return (CardinalPoint.East ,GetRoomById(room.EastId)!);
+            }
+            if (!(room.WestId is null))
+            {
+                yield return (CardinalPoint.West, GetRoomById(room.WestId)!);
+            }
+            if (!(room.NorthId is null))
+            {
+                yield return (CardinalPoint.North, GetRoomById(room.NorthId)!);
+            }
+            if (!(room.SouthId is null))
+            {
+                yield return (CardinalPoint.South, GetRoomById(room.SouthId)!);
+            }
+        }
         public Room? GetRoom(int x, int y)
         {
             return _rooms.FirstOrDefault(r => r.Position == new Point(x, y));
@@ -92,6 +151,7 @@ namespace MUDhub.Prototype.Server.Services
 
             var realRooms = rooms.ToDictionary(r => r.Id, r => new Room
             {
+                Name = r.Name ?? string.Empty,
                 EnterMessage = r.EnterMessage ?? string.Empty,
                 Description = r.Description ?? string.Empty,
                 Position = new Point(r.X, r.Y),
@@ -119,7 +179,7 @@ namespace MUDhub.Prototype.Server.Services
                     room1.WestId = room2.Id;
                     room2.EastId = room1.Id;
                 }
-                else if (yDistance > 0)
+                else if (yDistance < 0)
                 {
                     room1.NorthId = room2.Id;
                     room2.SouthId = room1.Id;

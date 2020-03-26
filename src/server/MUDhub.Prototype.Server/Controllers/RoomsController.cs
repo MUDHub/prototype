@@ -34,6 +34,15 @@ namespace MUDhub.Prototype.Server.Controllers
             return Ok(_roomManager.GetRoom(x ?? 0, y ?? 0));            
         }
 
+        [HttpGet("{id}/adjacent")]
+        public IActionResult GetRoomNeighbors(string id)
+        {
+            return Ok(_roomManager
+                .GetRoomNeigbours(id)
+                .Select(r => new { Direction = r.Item1.ToString(), Room = r.Item2 })
+                .ToArray());
+        }
+
         [Authorize()]
         [HttpPost()]
         public IActionResult CreateRooms([FromBody]CreateRoomsArgs args)

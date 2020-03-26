@@ -1,1 +1,17 @@
-<p>map works!</p>
+<div class="map">
+	<ng-container *ngFor="let row of map; let y = index">
+		<div class="row">
+			<ng-container *ngFor="let room of row; let x = index">
+				<div class="room" [attr.roomId]="room?.id" [class.active]="room?.id == activeRoom"
+					[class.hasRoom]="room">{{ room?.name }}</div>
+				<div class="connector" *ngIf="x < row.length - 1" [class.active]="room?.eastId"></div>
+			</ng-container>
+		</div>
+		<div class="connector-row" *ngIf="y < map.length - 1">
+			<ng-container *ngFor="let room of row; let x = index">
+				<div class="connector" [class.active]="map[y][x]?.southId"></div>
+				<div class="corner" *ngIf="x < row.length - 1"></div>
+			</ng-container>
+		</div>
+	</ng-container>
+</div>

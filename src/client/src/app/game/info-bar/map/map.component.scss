@@ -1,5 +1,62 @@
+$connector-size: 14px;
+$connector-color: #aaa;
+
 :host {
+	position: relative;
+}
+
+
+.map {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: calc(100% - 1rem);
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	flex-direction: column;
+
+	.row {
+		display: flex;
+		flex-direction: row;
+		flex: 1 1 0px;
+		align-items: center;
+
+
+		.room {
+			flex: 1 1 0px;
+			padding: 0.8rem 0.4rem;
+			&.hasRoom {
+				border: 2px solid #fff;
+				text-align: center;
+			}
+
+			&.active {
+				border-color: red;
+			}
+		}
+	}
+
+	.connector-row {
+		display: flex;
+		flex-direction: row;
+		flex: 1 1 0px;
+
+		.connector {
+			flex: 1 1 0px;
+		}
+
+		.corner {
+			width: $connector-size;
+			height: $connector-size;
+		}
+	}
+
+	.connector {
+		width: $connector-size;
+		height: $connector-size;
+		&.active {
+			background-color: $connector-color;
+			max-width: $connector-size;
+		}
+	}
 }

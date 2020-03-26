@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService, Direction } from 'src/app/services/game.service';
+import { GameService } from 'src/app/services/game.service';
+import { Direction } from 'src/app/model/Direction';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
 	selector: 'app-interaction',
@@ -8,7 +10,7 @@ import { GameService, Direction } from 'src/app/services/game.service';
 })
 export class InteractionComponent implements OnInit {
 
-	constructor(private game: GameService) { }
+	constructor(private game: GameService, private room: RoomService) { }
 
 	ngOnInit(): void {
 	}
@@ -20,10 +22,10 @@ export class InteractionComponent implements OnInit {
 		this.game.sendUserInput(message);
 
 		const command = message.split(' ')[0];
+		const arg = message.replace(command + ' ', '');
 
 		switch (command) {
 			case 'gehe':
-				const arg = message.split(' ')[1];
 				let direction: Direction;
 				switch (arg) {
 					case 'westen':
@@ -48,6 +50,10 @@ export class InteractionComponent implements OnInit {
 				break;
 
 
+			case 'untersuche':
+				await this.handleUntersuche(arg);
+				break;
+
 			default:
 				console.log('unrecognized command');
 				break;
@@ -55,6 +61,39 @@ export class InteractionComponent implements OnInit {
 
 
 		element.value = '';
+	}
+
+
+
+
+	async handleUntersuche(subject: string) {
+		switch (subject) {
+			case 'ausgänge':
+				const neighbours = await this.room.getAdjacentRooms(this.game.actualRoom);
+				for (const neighbour of neighbours) {
+					let dir;
+					switch (neighbour.direction) {
+						case 'North':
+							dir = 'Norden';
+							break;
+						case 'East':
+							dir = 'Osten';
+							break;
+						case 'West':
+							dir = 'Westen';
+							break;
+						case 'South':
+							dir = 'Süden';
+							break;
+					}
+
+					this.game.displayMessage(`Im ${dir}: ${neighbour.room.description}`);
+				}
+				break;
+			default:
+				alert('Weiß nicht was zu untersuchen... Kenne ' + subject + ' nicht');
+				break;
+		}
 	}
 
 }
