@@ -1,5 +1,14 @@
 :host {
+	height: 100%;
+	overflow-y: scroll;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	flex-direction: column;
+	font-family: consolas;
+	padding: 0.5rem;
+
+	.message {
+		&:not(:last-child) {
+			margin-bottom: 0.75rem;
+		}
+	}
 }
