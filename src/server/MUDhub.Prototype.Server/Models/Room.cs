@@ -36,11 +36,9 @@ namespace MUDhub.Prototype.Server.Models
         {
             X = x;
             Y = y;
-            Uid = Guid.NewGuid().ToString();
+            //Uid = Guid.NewGuid().ToString();
         }
 
-        [Key]
-        public string Uid { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 

@@ -26,10 +26,45 @@ namespace MUDhub.Prototype.Server.Services
 
         private void CreateDefaultRooms()
         {
-            _rooms.Add(new Room
+            List<RoomCreations> rooms = new List<RoomCreations>()
             {
-                EnterMessage = "Sie sind in der Kantine!"
-            });
+                new RoomCreations
+                {
+                    Id = 1,
+                    Description = "Das ist die Kantine",
+                    X = 0,
+                    Y = 0
+                },
+                new RoomCreations
+                {
+                    Id = 2,
+                    Description = "Das ist der Gang",
+                    X = 1,
+                    Y = 0
+                },
+                new RoomCreations
+                {
+                    Id = 3,
+                    Description = "Das ist das Klo",
+                    X = 2,
+                    Y = 0
+                }
+            };
+
+            List<RoomCreationLinks> roomLinks = new List<RoomCreationLinks>()
+            {
+                new RoomCreationLinks
+                {
+                    Room1 = 1,
+                    Room2 = 2
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 2,
+                    Room2 = 3
+                }
+            };
+            CreateRooms(rooms, roomLinks);
         }
 
         public Room? GetRoom(int x, int y)
@@ -75,7 +110,8 @@ namespace MUDhub.Prototype.Server.Services
                     room1.EastId = room2.Id;
                     room2.WestId = room1.Id;
                 }
-                else if (xDistance < 0) {
+                else if (xDistance < 0)
+                {
                     room1.WestId = room2.Id;
                     room2.EastId = room1.Id;
                 }
