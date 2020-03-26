@@ -21,11 +21,16 @@ namespace MUDhub.Prototype.Server.Services
     public class UserManager
     {
 
-        public UserManager(ApplicationDbContext dbContext, IOptions<UserSettings> options)
+        public UserManager(ApplicationDbContext dbContext, IOptions<UserSettings> options) 
+            : this(dbContext, options?.Value ?? throw new ArgumentNullException(nameof(options)))
         {
 
+            
+        }
+        public UserManager(ApplicationDbContext dbContext, UserSettings options)
+        {
             _dbContext = dbContext;
-            _userSettings = options.Value;
+            _userSettings = options ?? throw new ArgumentNullException(nameof(options));
         }
 
         private readonly UserSettings _userSettings;

@@ -29,7 +29,7 @@ namespace MUDhub.Prototype.Server.Services
             IHubContext<GameHub> hubContext,
             ILogger<NavigationService>? logger = null)
         {
-            _roomManager = roomManager;
+            _roomManager = roomManager ?? throw new ArgumentNullException(nameof(roomManager));
             _hubContext = hubContext;
             _logger = logger;
             _activeRooms = new Dictionary<string, string>();
@@ -53,7 +53,7 @@ namespace MUDhub.Prototype.Server.Services
             var oldRoom = _roomManager.GetRoomById(_activeRooms[userId]);
             if (oldRoom is null)
             {
-                return new NavigationResult(false,string.Empty);
+                return new NavigationResult(false, string.Empty);
             }
 
             switch (direction)
@@ -108,18 +108,26 @@ namespace MUDhub.Prototype.Server.Services
         public NavigationResult UserJoinedTheWorld(string userId)
         {
             //Later consistence checking
-            _activeRooms.Add(userId, _roomToJoin);
-            var room = _roomManager.GetRoomById(_roomToJoin);
-            //add Event messages
-            NotifyClient(userId, room!.EnterMessage);
-            return new NavigationResult(true, room!.EnterMessage);
+            if (!_activeRooms.ContainsKey(userId))
+            {
+                _activeRooms.Add(userId, _roomToJoin);
+                var room = _roomManager.GetRoomById(_roomToJoin);
+                //add Event messages
+                NotifyClient(userId, room!.EnterMessage);
+                return new NavigationResult(true, room!.EnterMessage);
+
+            }
+            else
+            {
+                return new NavigationResult(false, string.Empty);
+            }
         }
 
         private void NotifyClient(string userid, string message)
         {
             //Fire and forget, no awaiting.
             _hubContext.Clients.User(userid)
-                .SendAsync(nameof(IGameClientContract.ReceiveGameMessage),message);
+                .SendAsync(nameof(IGameClientContract.ReceiveGameMessage), message);
         }
 
     }

@@ -20,6 +20,11 @@ namespace MUDhub.Prototype.Server.Services
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if (modelBuilder is null)
+            {
+                throw new ArgumentNullException(nameof(modelBuilder));
+            }
+
             modelBuilder.Entity<User>().HasData(new User
             {
                 Id = Guid.NewGuid().ToString(),
