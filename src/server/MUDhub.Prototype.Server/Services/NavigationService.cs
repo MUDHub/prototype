@@ -118,7 +118,7 @@ namespace MUDhub.Prototype.Server.Services
         {
             //Fire and forget, no awaiting.
             _hubContext.Clients.User(userid)
-                .SendAsync(nameof(IGameClientContract.ReceiveMainMessage));
+                .SendAsync(nameof(IGameClientContract.ReceiveGameMessage),message);
         }
 
     }
