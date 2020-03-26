@@ -16,7 +16,19 @@ export class GlobalChatComponent implements OnInit {
 	}[] = [];
 
 	username: string;
-	error: string;
+
+
+	private _errorMessage: string;
+	get error() {
+		return this._errorMessage;
+	}
+	set error(value: string) {
+		this._errorMessage = value;
+
+		if (value) {
+			setTimeout(() => this.error = undefined, 4000);
+		}
+	}
 
 	@ViewChild('chat')
 	private chatEl: ElementRef;
@@ -84,10 +96,6 @@ export class GlobalChatComponent implements OnInit {
 				}
 			} else {
 				this.error = 'Keine Verbindung zum Server';
-
-				setTimeout(() => {
-					this.error = undefined;
-				}, 2000);
 			}
 
 		}
@@ -106,6 +114,7 @@ export class GlobalChatComponent implements OnInit {
 			}
 		} catch (err) {
 			console.error(err);
+			this.error = err.message;
 		}
 	}
 
@@ -119,7 +128,7 @@ export class GlobalChatComponent implements OnInit {
 			this.history.push({
 				message,
 				private: true
-			})
+			});
 		} else {
 			throw new Error('Ungültiger Befehlsaufruf "/whisper <user> <message>"');
 		}
