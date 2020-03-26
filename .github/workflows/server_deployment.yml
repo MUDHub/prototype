@@ -43,3 +43,4 @@ jobs:
         app-name: MUDhub-prototype # Replace with your app name
         publish-profile: ${{  secrets.azure_deployment_key }} # Replace with the name of your publish profile
         package: ${{env.WORKDIR_DEST}}  # Specify the folder or file to deploy
+
