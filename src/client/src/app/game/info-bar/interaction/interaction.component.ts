@@ -17,6 +17,8 @@ export class InteractionComponent implements OnInit {
 	async sendMessage(element: HTMLInputElement) {
 		const message = element.value;
 
+		this.game.sendUserInput(message);
+
 		const command = message.split(' ')[0];
 
 		switch (command) {
@@ -37,10 +39,14 @@ export class InteractionComponent implements OnInit {
 						direction = Direction.South;
 						break;
 				}
-
 				const result = await this.game.tryEnterRoom(direction);
 				console.log(result);
 				break;
+
+			case '#clear':
+				this.game.clearChat();
+				break;
+
 
 			default:
 				console.log('unrecognized command');

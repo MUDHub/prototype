@@ -1,3 +1,2 @@
-<div class="message">> Hallo Welt</div>
-
-<div class="message" *ngFor="let m of chat">{{ m }}</div>
+<div class="message" *ngFor="let m of chat" [class.user-input]="m.type === MessageType.Client">
+	{{ m.message }}</div>
