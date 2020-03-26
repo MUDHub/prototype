@@ -39,7 +39,7 @@ namespace MUDhub.Prototype.Server
                 conf.RootPath = _spaDestiantion;
             });
             services.AddScoped<UserManager>();
-            services.AddScoped<NavigationService>();
+            services.AddSingleton<NavigationService>();
             services.AddSingleton<RoomManager>();
             services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlite("Data Source=myDatabase.db"),

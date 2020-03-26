@@ -16,12 +16,10 @@ namespace MUDhub.Prototype.Server.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager _userManager;
-        private readonly NavigationService _navigationService;
 
-        public UsersController(UserManager userService, NavigationService navigationService)
+        public UsersController(UserManager userService)
         {
             _userManager = userService;
-            _navigationService = navigationService;
         }
 
         [AllowAnonymous]
@@ -34,7 +32,6 @@ namespace MUDhub.Prototype.Server.Controllers
             if (!result.Succeeded)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
-            _navigationService.UserJoinedTheWorld(result.User!.Id);
             return Ok(result);
         }   
 
