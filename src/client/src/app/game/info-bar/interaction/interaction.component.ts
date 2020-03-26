@@ -25,18 +25,23 @@ export class InteractionComponent implements OnInit {
 		const arg = message.replace(command + ' ', '');
 
 		switch (command) {
+			case 'g':
 			case 'gehe':
 				let direction: Direction;
 				switch (arg) {
+					case 'w':
 					case 'westen':
 						direction = Direction.West;
 						break;
+					case 'o':
 					case 'osten':
 						direction = Direction.East;
 						break;
+					case 'n':
 					case 'norden':
 						direction = Direction.North;
 						break;
+					case 's':
 					case 'süden':
 						direction = Direction.South;
 						break;
