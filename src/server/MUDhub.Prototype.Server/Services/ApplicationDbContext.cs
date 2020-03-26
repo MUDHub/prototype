@@ -29,7 +29,7 @@ namespace MUDhub.Prototype.Server.Services
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = "marvin",
-                PasswordHash = UserManager.CreatePasswordHash("hallowelt")
+                PasswordHash = UserManager.CreatePasswordHash("test")
             });
             modelBuilder.Entity<User>().HasData(new User
             {
@@ -41,6 +41,18 @@ namespace MUDhub.Prototype.Server.Services
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = "moris",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "benita",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "paul",
                 PasswordHash = UserManager.CreatePasswordHash("test")
             });
 

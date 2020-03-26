@@ -113,7 +113,7 @@ namespace MUDhub.Prototype.Server.Services
                 _activeRooms.Add(userId, _roomToJoin);
                 var room = _roomManager.GetRoomById(_roomToJoin);
                 //add Event messages
-                NotifyClient(userId, room!.EnterMessage);
+                NotifyClient(userId, room?.EnterMessage ?? string.Empty);
                 return new NavigationResult(true, room!.EnterMessage, _activeRooms[userId]);
             }
             else

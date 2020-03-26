@@ -22,7 +22,155 @@ namespace MUDhub.Prototype.Server.Services
         public RoomManager()
         {
             _rooms = new List<Room>();
-            CreateDefaultRooms();
+            //CreateDefaultRooms();
+            CreateThorsWorld();
+        }
+
+        private void CreateThorsWorld()
+        {
+            List<RoomCreations> rooms = new List<RoomCreations>()
+            {
+                new RoomCreations
+                {
+                    Id = 1,
+                    Name = "Ljossalfheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 0,
+                    Y = 0
+                },
+                new RoomCreations
+                {
+                    Id = 2,
+                    Name = "Asgrad",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 1,
+                    Y = 0
+                },
+                new RoomCreations
+                {
+                    Id = 3,
+                    Name = "Vanaheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 2,
+                    Y = 0
+                },
+                new RoomCreations
+                {
+                    Id = 4,
+                    Name = "Nidavellir",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 0,
+                    Y = 1
+                },
+                new RoomCreations
+                {
+                    Id = 5,
+                    Name = "Midgard",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 1,
+                    Y = 1
+                },
+                new RoomCreations
+                {
+                    Id = 6,
+                    Name = "Jötumheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 2,
+                    Y = 1
+                },
+                new RoomCreations
+                {
+                    Id = 7,
+                    Name = "Muspelheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 0,
+                    Y = 2
+                },
+                new RoomCreations
+                {
+                    Id = 8,
+                    Name = "Niffelheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 1,
+                    Y = 2
+                },
+                new RoomCreations
+                {
+                    Id = 9,
+                    Name = "Svartalfheim",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 2,
+                    Y = 2
+                },
+                new RoomCreations
+                {
+                    Id = 10,
+                    Name = "Hel",
+                    EnterMessage = "",
+                    Description = "",
+                    X = 1,
+                    Y = 3
+                }
+            };
+
+            List<RoomCreationLinks> roomLinks = new List<RoomCreationLinks>()
+            {
+                new RoomCreationLinks
+                {
+                    Room1 = 1,
+                    Room2 = 2
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 2,
+                    Room2 = 3,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 4,
+                    Room2 = 5,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 2,
+                    Room2 = 5,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 5,
+                    Room2 = 6,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 7,
+                    Room2 = 8,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 5,
+                    Room2 = 8,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 8,
+                    Room2 = 9,
+                },
+                new RoomCreationLinks
+                {
+                    Room1 = 8,
+                    Room2 = 10,
+                },
+            };
+            CreateRooms(rooms, roomLinks);
         }
 
         private void CreateDefaultRooms()
@@ -103,7 +251,7 @@ namespace MUDhub.Prototype.Server.Services
             CreateRooms(rooms, roomLinks);
         }
 
-        public IEnumerable<(CardinalPoint ,Room)> GetRoomNeigbours(string id)
+        public IEnumerable<(CardinalPoint, Room)> GetRoomNeigbours(string id)
         {
             var room = GetRoomById(id);
             if (room is null)
@@ -111,10 +259,10 @@ namespace MUDhub.Prototype.Server.Services
                 //Todo: add exception message.
                 throw new ArgumentException();
             }
-            
+
             if (!(room.EastId is null))
             {
-                yield return (CardinalPoint.East ,GetRoomById(room.EastId)!);
+                yield return (CardinalPoint.East, GetRoomById(room.EastId)!);
             }
             if (!(room.WestId is null))
             {
