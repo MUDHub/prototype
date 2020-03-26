@@ -23,12 +23,12 @@ namespace MUDhub.Prototype.Server
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _useProxy = Configuration.GetValue<bool>("spaAsStandalone");
+            _spaAsStandalone = Configuration.GetValue<bool>("spaAsStandalone");
             _spaDestiantion = Configuration["spaDestination"];
         }
 
         public IConfiguration Configuration { get; }
-        private readonly bool _useProxy;
+        private readonly bool _spaAsStandalone;
         private readonly string _spaDestiantion;
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -121,20 +121,19 @@ namespace MUDhub.Prototype.Server
             });
 
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
             }
             else
             {
                 app.UseExceptionHandler("/Error");
+                app.UseSpaStaticFiles();
             }
-            app.UseSpaStaticFiles();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -145,7 +144,7 @@ namespace MUDhub.Prototype.Server
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
-            if (_useProxy)
+            if (_spaAsStandalone)
             {
                 app.UseCors(builder =>
                 {
@@ -170,7 +169,7 @@ namespace MUDhub.Prototype.Server
                 {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
                     // see https://go.microsoft.com/fwlink/?linkid=864501
-                    if (!_useProxy)
+                    if (!_spaAsStandalone)
                     {
                         spa.Options.SourcePath = _spaDestiantion;
                     }
