@@ -36,7 +36,10 @@ export class GameService {
 	}
 
 	async tryEnterRoom(direction: Direction) {
-		return this.connection.invoke<{ message: string, succeeded: boolean }>('tryEnterRoom', direction);
+		const result = await this.connection.invoke<{ message: string, succeeded: boolean }>('tryEnterRoom', direction);
+		if (!result.succeeded) {
+			this.receiveGameMessageSubject.next(`Es befindet sich kein Raum im ${Direction[direction]}`);
+		}
 	}
 
 }
