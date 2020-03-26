@@ -100,6 +100,7 @@ namespace MUDhub.Prototype.Server.Services
             }
 
             // Add event messages
+            NotifyClient(userId, newRoom.EnterMessage);
             return new NavigationResult(true, newRoom.EnterMessage);
         }
 
