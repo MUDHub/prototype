@@ -31,6 +31,7 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 1,
+                    EnterMessage = "Sie betreten die Kantine.",
                     Description = "Das ist die Kantine",
                     X = 0,
                     Y = 0
@@ -38,6 +39,7 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 2,
+                    EnterMessage = "Sieht der Gang nicht toll aus?",
                     Description = "Das ist der Gang",
                     X = 1,
                     Y = 0
@@ -45,6 +47,7 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 3,
+                    EnterMessage = "Mehr als 3 mal schütteln ist Vergnügen",
                     Description = "Das ist das Klo",
                     X = 2,
                     Y = 0
@@ -89,9 +92,10 @@ namespace MUDhub.Prototype.Server.Services
 
             var realRooms = rooms.ToDictionary(r => r.Id, r => new Room
             {
+                EnterMessage = r.EnterMessage ?? string.Empty,
                 Description = r.Description ?? string.Empty,
                 Position = new Point(r.X, r.Y),
-            });
+            }); ;
 
             //resolve links
             foreach (var link in links)
