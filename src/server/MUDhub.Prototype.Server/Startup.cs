@@ -129,24 +129,17 @@ namespace MUDhub.Prototype.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSpaStaticFiles();
-                app.Use(async (context, next) =>
-                {
-
-                    await next();
-
-
-                });
             }
             else
             {
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUDhub API");
-            });
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUDhub API");
+            //});
 
             app.UseAuthentication();
             app.UseRouting();
@@ -172,6 +165,7 @@ namespace MUDhub.Prototype.Server
 
             if (!env.IsDevelopment())
             {
+                
                 app.UseSpa(spa =>
                 {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
