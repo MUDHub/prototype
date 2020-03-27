@@ -55,6 +55,36 @@ namespace MUDhub.Prototype.Server.Services
                 Username = "paul",
                 PasswordHash = UserManager.CreatePasswordHash("test")
             });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "sven",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "stephan",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "avh",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "cc",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = "test",
+                PasswordHash = UserManager.CreatePasswordHash("test")
+            });
 
         }
         public DbSet<User> Users { get; set; } = null!;

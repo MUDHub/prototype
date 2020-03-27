@@ -34,8 +34,11 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 1,
                     Name = "Ljossalfheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Ljossalfheim",
+                    Description = "ist die Heimat der Lichtelfen, eine lichtdurchflutete Region und weil das Licht zur Erkenntnis führt, " +
+                    "wird dieser Welt der nach Verständnis und Harmonie strebende Geist zugeordnet."+
+                    "Elfen sind leuchtende Wesen, die sich gerne in lichten Hainen, " +
+                    "an Quellen, in der Nähe von Blumen und Bäumen, auf Hügeln, Felsen und an Wasserfällen aufhalten.",
                     X = 0,
                     Y = 0
                 },
@@ -43,8 +46,14 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 2,
                     Name = "Asgrad",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Asgrad",
+                    Description = "Asgard ist die oberste Welt. " +
+                    "Hier wohnen die Asengötter - an die Spitze der Hierarchie. " +
+                    "In Asgardh gibt es diverse Hallen, in denen die nordischen Götter wohnen. " +
+                    "In Wallhalla, eine der berühmtesten Hallen, wohnen die in der Schlacht gefallenen Helden. " +
+                    "Der oberste Punkt nennt sich Hlidskjalf . " +
+                    "Das ist der Thron von Odin. " +
+                    "Von seinem Thron aus kann Odin alle Welten überblicken.",
                     X = 1,
                     Y = 0
                 },
@@ -52,8 +61,11 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 3,
                     Name = "Vanaheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Vanaheim",
+                    Description = "Vanaheim ist die Welt der Wanen. " +
+                    "Es ist das Reich der Grundmuster des Organischen und der Verschmelzung, ein Ort der in fruchtbarer und statischer Balance befindlichen Kräfte. " +
+                    "Wasser ist das Element dieser Welt. " +
+                    "Die Wanen werden als die alten Erdgottheiten, des Friedens, der Harmonie und Reichtums betrachtet.",
                     X = 2,
                     Y = 0
                 },
@@ -61,8 +73,10 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 4,
                     Name = "Nidavellir",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Nidavellir",
+                    Description = "Nidavellir ist eine der Neun Welten des Weltenbaums. " +
+                    "Die Heimat der Zwerge ist vor allem für seine Waffenschmiede bekannt, die sich der Energie eines Sterns bedient. " +
+                    "Hier wurden unter anderem Mjölnir, Gungnir, Hofund und Sturmbrecher erschaffen. ",
                     X = 0,
                     Y = 1
                 },
@@ -70,8 +84,12 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 5,
                     Name = "Midgard",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Midgard",
+                    Description = "Midgard ist die eigentliche Heimat der Menschen. " +
+                    "Es ist die Ebene der materiell manifestierten Dinge und Ereignisse. " +
+                    "Umschlungen wird Midhgard von der Weltenschlange, " +
+                    "die das grundlegende Gesetzt des Lebens symbolisiert. " +
+                    "Sie verschlingt sich selbst. ",
                     X = 1,
                     Y = 1
                 },
@@ -79,8 +97,12 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 6,
                     Name = "Jötumheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Jötumheim",
+                    Description = "Jötunheim ist das Reich, in dem die Riesen heimisch sind. " +
+                    "Die Riesen stehen für personifiziert Naturgewalten sind. " +
+                    "Sie mögen für den Menschen oft bedrohlich und gefährlich sein. " +
+                    "Dennoch sind sie ein Bestandteil des natürlichen Zyklus und damit lebenswichtig. " +
+                    "Aus einem Riesen erschufen die Asen einst die Welt.",
                     X = 2,
                     Y = 1
                 },
@@ -88,8 +110,10 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 7,
                     Name = "Muspelheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Muspelheim",
+                    Description = "Muspelsheim ist das Reich des reinen Feuers, der Funken, der Elektrizität. " +
+                    "Hier finden wir die Expansion, die Kraft reiner Energie, die sich ständig ausdehnt. " +
+                    "In der nordischen Kosmologie entstand die Welt aus der dynamischen Wechselwirkung zwischen Feuer und Eis über und innerhalb eines leeren Abgrundes, des magischen geladenen Nichts.",
                     X = 0,
                     Y = 2
                 },
@@ -97,8 +121,13 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 8,
                     Name = "Niffelheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Niffelheim",
+                    Description = "Niflheim ist das Reich des reinen Eises, " +
+                    "des Nebels und der tiefsten Finsternis. " +
+                    "Seine vorherrschenden Bedingungen sind starke Konzentration, Begrenzung, Kontraktion, Magnetismus und dadurch Strukturgebung. " +
+                    "Aus dem eisigen Niflheimr fließt Isa  - das Welteneis." +
+                    " Isa verbindet sich mit den Funken aus Muspelsheim und erschafft damit Ymir und Audumla. " +
+                    "Später wird Niflheimr in das Totenreich von Hel verlegt.",
                     X = 1,
                     Y = 2
                 },
@@ -106,8 +135,14 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 9,
                     Name = "Svartalfheim",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Svartalfheim",
+                    Description = "Svartalfheim ist der dunkle Gegenpart zum Lichtelfenheim. " +
+                    "Hier leben die Schwarzelfen, die Zwerge. " +
+                    "Es ist im Weltenbaum gesehen eine unterirdische dunkle Welt, in der die Gestalt geformt, “geschmiedet” wird. " +
+                    "Die  Märchen und Sagen von Zwergen beschreiben die Zwerge als überaus geschickte Handwerker. " +
+                    "Viele von ihnen betreiben Bergbau. Andere sind in der Schmiedekunst und Glasbläserei meisterhaft. " +
+                    "Viele der berühmten magischen Gegenstände stammen aus dem dunklen Reich der Zwerge. " +
+                    "- natürlich auch Thors Hammer. ",
                     X = 2,
                     Y = 2
                 },
@@ -115,13 +150,16 @@ namespace MUDhub.Prototype.Server.Services
                 {
                     Id = 10,
                     Name = "Hel",
-                    EnterMessage = "",
-                    Description = "",
+                    EnterMessage = "Willkommen in Hel",
+                    Description = "Hel ist das Totenreich. " +
+                    "Einst war dies einfach der Ort, wo alle, die nicht im Kampf gestorben sind, nach ihrem Tod hinkommen." +
+                    " In der späteren Prosa Edda schildert Snorri  das Gehege der Hel als riesengroß, außerordentlich hoch und von Gittern umgeben. " +
+                    "Ihr Saal heißt Elend, Hunger ihre Schüssel, Gier ihr Messer, Träg ihr Knecht, Langsam ihre Magd, Einsturz ihre Schwelle, ihr Bett Kümmernis und ihr Vorhang dräuendes Unheil. " +
+                    "Hel selbst ist halb schwarz und halb menschenfarbig, grimmig und furchtbar vom Aussehen.",
                     X = 1,
                     Y = 3
                 }
             };
-
             List<RoomCreationLinks> roomLinks = new List<RoomCreationLinks>()
             {
                 new RoomCreationLinks
@@ -224,7 +262,6 @@ namespace MUDhub.Prototype.Server.Services
                 },
 
             };
-
             List<RoomCreationLinks> roomLinks = new List<RoomCreationLinks>()
             {
                 new RoomCreationLinks

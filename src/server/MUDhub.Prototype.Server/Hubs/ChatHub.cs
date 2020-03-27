@@ -41,10 +41,27 @@ namespace MUDhub.Prototype.Server.Hubs
             Clients.User(targetUser.Id).ReceivePrivateMessage(message, user.Username);
         }
 
-        public override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
+            var user = await _userManager.GetUserByIdAsync(Context.UserIdentifier)
+                .ConfigureAwait(false);
             //Maybe later Save Messages.
-            return base.OnConnectedAsync();
+            await Clients.Others
+                .ReceiveGlobalMessage($"{user?.Username ?? "Unkown"} ist dem Chat beigetreten.", "Server")
+                .ConfigureAwait(false);
+            await base.OnConnectedAsync()
+                .ConfigureAwait(false);
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            var user = await _userManager.GetUserByIdAsync(Context.UserIdentifier)
+                .ConfigureAwait(false);
+            //Maybe later Save Messages.
+            await Clients.Others
+                .ReceiveGlobalMessage($"{user?.Username ?? "Unkown"} hat den Chat verlassen.", "Server")
+                .ConfigureAwait(false);
+            await base.OnDisconnectedAsync(exception);
         }
 
         private async Task<User> GetActualUserAsync()
