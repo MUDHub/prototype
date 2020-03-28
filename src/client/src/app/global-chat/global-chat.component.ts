@@ -1,21 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { GlobalChatService } from '../services/global-chat.service';
 import { AuthService } from '../services/auth.service';
+import { Subscription } from 'rxjs';
+import { IMessage } from '../model/IMessage';
 
 @Component({
 	selector: 'app-global-chat',
 	templateUrl: './global-chat.component.html',
 	styleUrls: ['./global-chat.component.scss']
 })
-export class GlobalChatComponent implements OnInit {
+export class GlobalChatComponent implements OnInit, OnDestroy {
 
-	history: {
-		name?: string,
-		message: string,
-		private: boolean
-	}[] = [];
-
-	username: string;
+	private publicMessageSubscription: Subscription;
+	private privateMessageSubscription: Subscription;
 
 
 	private _errorMessage: string;
@@ -30,36 +27,57 @@ export class GlobalChatComponent implements OnInit {
 		}
 	}
 
+	history: IMessage[] = [];
+
+	username: string;
+
+
 	@ViewChild('chat')
 	private chatEl: ElementRef;
 
-	private publicMessageSubscription;
-	private privateMessageSubscription;
 
 	constructor(private chat: GlobalChatService, private auth: AuthService) { }
 
+
+	private addMessage(message: IMessage) {
+		this.history.push(message);
+		setTimeout(() => this.scrollToBottom(), 0);
+		if (this.history.length > 500) {
+			this.history.shift();
+		}
+	}
+
+
 	ngOnInit() {
 		this.publicMessageSubscription = this.chat.newGlobalMessage$.subscribe(m => {
-			this.history.push({
+			this.addMessage({
 				message: m.message,
 				name: m.name,
 				private: false
 			});
-			this.scrollToBottom();
 		});
 
 		this.privateMessageSubscription = this.chat.newPrivateMessage$.subscribe(m => {
-			this.history.push({
+			this.addMessage({
 				message: m.message,
 				name: m.name,
 				private: true
 			});
-			this.scrollToBottom();
 		});
 
 
 		this.username = this.auth.user.username;
 	}
+
+	ngOnDestroy() {
+		if (this.privateMessageSubscription && !this.privateMessageSubscription.closed) {
+			this.privateMessageSubscription.unsubscribe();
+		}
+		if (this.publicMessageSubscription && !this.publicMessageSubscription.closed) {
+			this.publicMessageSubscription.unsubscribe();
+		}
+	}
+
 
 
 	scrollToBottom() {
@@ -97,7 +115,6 @@ export class GlobalChatComponent implements OnInit {
 			} else {
 				this.error = 'Keine Verbindung zum Server';
 			}
-
 		}
 	}
 
@@ -107,6 +124,10 @@ export class GlobalChatComponent implements OnInit {
 			switch (command.replace('/', '')) {
 				case 'whisper':
 					await this.whisper(args);
+					break;
+
+				case 'clear':
+					this.history = [];
 					break;
 
 				default:

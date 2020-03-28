@@ -11,7 +11,12 @@ export class GameChatComponent implements OnInit {
 
 	MessageType = MessageType;
 
-	chat: { message: string, type: MessageType }[] = [];
+	chat: { message: string, type: MessageType }[] = [
+		{
+			message: 'Gebe "hilfe" für eine Übersicht aller Befehle ein',
+			type: MessageType.Server
+		}
+	];
 
 	constructor(private game: GameService) { }
 

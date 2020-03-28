@@ -1,1 +1,6 @@
-<input type="text" (keydown.enter)="sendMessage(input)" #input>
+<input type="text"
+	[(ngModel)]="input"
+	(keydown.enter)="sendMessage()"
+	(keydown.arrowUp)="handleHistory('up')"
+	(keydown.arrowDown)="handleHistory('down')"
+	>

@@ -35,7 +35,7 @@ namespace MUDhub.Prototype.Server.Services
                     Id = 1,
                     Name = "Ljossalfheim",
                     EnterMessage = "Willkommen in Ljossalfheim",
-                    Description = "ist die Heimat der Lichtelfen, eine lichtdurchflutete Region und weil das Licht zur Erkenntnis führt, " +
+                    Description = "Ljossalfheim ist die Heimat der Lichtelfen, eine lichtdurchflutete Region und weil das Licht zur Erkenntnis führt, " +
                     "wird dieser Welt der nach Verständnis und Harmonie strebende Geist zugeordnet."+
                     "Elfen sind leuchtende Wesen, die sich gerne in lichten Hainen, " +
                     "an Quellen, in der Nähe von Blumen und Bäumen, auf Hügeln, Felsen und an Wasserfällen aufhalten.",
@@ -45,8 +45,8 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 2,
-                    Name = "Asgrad",
-                    EnterMessage = "Willkommen in Asgrad",
+                    Name = "Asgard",
+                    EnterMessage = "Willkommen in Asgard",
                     Description = "Asgard ist die oberste Welt. " +
                     "Hier wohnen die Asengötter - an die Spitze der Hierarchie. " +
                     "In Asgardh gibt es diverse Hallen, in denen die nordischen Götter wohnen. " +
@@ -96,8 +96,8 @@ namespace MUDhub.Prototype.Server.Services
                 new RoomCreations
                 {
                     Id = 6,
-                    Name = "Jötumheim",
-                    EnterMessage = "Willkommen in Jötumheim",
+                    Name = "Jötunheim",
+                    EnterMessage = "Willkommen in Jötunheim",
                     Description = "Jötunheim ist das Reich, in dem die Riesen heimisch sind. " +
                     "Die Riesen stehen für personifiziert Naturgewalten sind. " +
                     "Sie mögen für den Menschen oft bedrohlich und gefährlich sein. " +
@@ -111,7 +111,7 @@ namespace MUDhub.Prototype.Server.Services
                     Id = 7,
                     Name = "Muspelheim",
                     EnterMessage = "Willkommen in Muspelheim",
-                    Description = "Muspelsheim ist das Reich des reinen Feuers, der Funken, der Elektrizität. " +
+                    Description = "Muspelheim ist das Reich des reinen Feuers, der Funken, der Elektrizität. " +
                     "Hier finden wir die Expansion, die Kraft reiner Energie, die sich ständig ausdehnt. " +
                     "In der nordischen Kosmologie entstand die Welt aus der dynamischen Wechselwirkung zwischen Feuer und Eis über und innerhalb eines leeren Abgrundes, des magischen geladenen Nichts.",
                     X = 0,
@@ -122,7 +122,7 @@ namespace MUDhub.Prototype.Server.Services
                     Id = 8,
                     Name = "Niffelheim",
                     EnterMessage = "Willkommen in Niffelheim",
-                    Description = "Niflheim ist das Reich des reinen Eises, " +
+                    Description = "Niffelheim ist das Reich des reinen Eises, " +
                     "des Nebels und der tiefsten Finsternis. " +
                     "Seine vorherrschenden Bedingungen sind starke Konzentration, Begrenzung, Kontraktion, Magnetismus und dadurch Strukturgebung. " +
                     "Aus dem eisigen Niflheimr fließt Isa  - das Welteneis." +

@@ -5,7 +5,8 @@
 		[class.own]="m.name === username || m.name === undefined"
 		[class.private]="m.private"
 		[class.combine-down]="history[i + 1]?.name === m.name"
-		[class.combine-up]="history[i - 1]?.name === m.name">
+		[class.combine-up]="history[i - 1]?.name === m.name"
+	>
 		<div class="sender" *ngIf="m.name !== username && history[i - 1]?.name !== m.name">{{ m.name }}</div>
 		<div class="content">{{ m.message }}</div>
 	</div>

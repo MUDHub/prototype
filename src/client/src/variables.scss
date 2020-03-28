@@ -3,3 +3,7 @@ $primary: #F8981E;
 
 $infobar-height: 450px;
 $infobar-width: 500px;
+
+$scrollbar-width: 10px;
+$scrollbar-track-color: #555;
+$scrollbar-thumb-color: lighten($scrollbar-track-color, 10%);

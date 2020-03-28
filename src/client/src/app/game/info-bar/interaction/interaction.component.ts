@@ -10,15 +10,34 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class InteractionComponent implements OnInit {
 
+	commandHistory: string[] = [];
+
+	input = '';
+
+	private _historyPosition = -1;
+	private get historyPosition() {
+		return this._historyPosition;
+	}
+	private set historyPosition(value: number) {
+		if (value >= -1 && value < this.commandHistory.length) {
+			this._historyPosition = value;
+			if (value === -1) {
+				this.input = '';
+			} else {
+				this.input = this.commandHistory[this.historyPosition];
+			}
+		}
+	}
+
 	constructor(private game: GameService, private room: RoomService) { }
 
 	ngOnInit(): void {
 	}
 
 
-	async sendMessage(element: HTMLInputElement) {
-		const message = element.value;
-
+	async sendMessage() {
+		const message = this.input;
+		this.addToHistory(message);
 		this.game.sendUserInput(message);
 
 		const command = message.split(' ')[0];
@@ -55,6 +74,11 @@ export class InteractionComponent implements OnInit {
 				break;
 
 
+			case 'hilfe':
+				this.handleHilfe();
+				break;
+
+
 			case 'untersuche':
 				await this.handleUntersuche(arg);
 				break;
@@ -65,10 +89,35 @@ export class InteractionComponent implements OnInit {
 		}
 
 
-		element.value = '';
+		this.input = '';
 	}
 
 
+
+	handleHilfe() {
+		const commands: { command: string, parameter?: string[], description: string }[] = [
+			{
+				command: 'gehe',
+				parameter: ['norden', 'osten', 'süden', 'westen', ],
+				description: 'Bewegt den Spieler in den angrenzenden Raum in der jeweiligen Himmelsrichtung'
+			},
+			{
+				command: 'untersuche',
+				parameter: [ 'ausgänge' ],
+				description: 'Gibt Informationen über angrenzende Räume aus'
+			},
+			{
+				command: '#clear',
+				description: 'Löscht die Chat-Historie'
+			},
+		];
+
+		for (const c of commands) {
+			this.game.displayMessage(` ${c.command} ${c.parameter ? c.parameter?.join('|') : ''}`);
+			this.game.displayMessage(`--> ${c.description}`);
+		}
+
+	}
 
 
 	async handleUntersuche(subject: string) {
@@ -101,4 +150,18 @@ export class InteractionComponent implements OnInit {
 		}
 	}
 
+
+
+	handleHistory(dir: 'up' | 'down') {
+		if (dir === 'up') {
+			this.historyPosition++;
+		} else {
+			this.historyPosition--;
+		}
+	}
+
+	addToHistory(message) {
+		this.commandHistory.unshift(message);
+		this.historyPosition = -1;
+	}
 }

@@ -20,7 +20,7 @@ $background-color: #292929;
 	flex-direction: column;
 	flex-grow: 1;
 	padding: 0.5rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 
 	font-size: 90%;
 
@@ -36,6 +36,9 @@ $background-color: #292929;
 
 		word-break: break-word;
 
+		&.big {
+			font-size: 200%;
+		}
 
 		&.combine-down {
 			margin-bottom: 0;
@@ -99,17 +102,17 @@ $background-color: #292929;
 
 /* width */
 ::-webkit-scrollbar {
-	width: 10px;
+	width: $scrollbar-width;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: $background-color;
+	background: $scrollbar-track-color;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: lighten($background-color, 15%);
+	background: $scrollbar-thumb-color;
 }
 
 /* Handle on hover */
